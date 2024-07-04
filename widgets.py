@@ -1,6 +1,6 @@
 from slots import CanvasSlot, StackBoxSlot, Widget, ParsedWidget
 import re
-from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i
+from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2
 
 class Button(Widget):
     text: str
@@ -60,7 +60,7 @@ class Image(Widget):
         brush = object['props'].get("Brush", "")
 
         imageSize = re.search(r"ImageSize=\((.*?)\)", brush)
-        resourceWidget = re.search(r"ResourceObject=\"(.*?)\"", brush)
+        resourceObject = re.search(r"ResourceObject=\"(.*?)\"", brush)
         tintColor = parse_color(brush)
 
         self.size = (32.0, 32.0)
@@ -70,8 +70,8 @@ class Image(Widget):
         if imageSize:
             self.size = parse_vector2(imageSize.group(1))
 
-        if resourceWidget:
-            path = resourceWidget.group(1).split("'")[1] # get the path only
+        if resourceObject:
+            path = resourceObject.group(1).split("'")[1] # get the path only
             # remove project name and file extension and replace / with .
             self.path = path.split("/", 2)[2].split(".")[0].replace("/", ".")
         
@@ -93,16 +93,13 @@ class Image(Widget):
             if(self.tintColor):
                 result += f"{i(indent + 1)}DefaultColor := {self.tintColor}\n"
 
-            if(self.size != (0, 0)):
-                result += f"{i(indent + 1)}DefaultDesiredSize := {self.format_vector2(self.size)}\n"
+            result += f"{i(indent + 1)}DefaultDesiredSize := {format_vector2(self.size)}\n"
 
             return result
         
         result = "texture_block:\n"
         result += f"{i(indent + 1)}DefaultImage := {self.path}\n"
-
-        if(self.size != (0, 0)):
-            result += f"{i(indent + 1)}DefaultDesiredSize := {self.format_vector2(self.size)}\n"
+        result += f"{i(indent + 1)}DefaultDesiredSize := {format_vector2(self.size)}\n"
 
         if(self.tintColor):
             result += f"{i(indent + 1)}DefaultTintColor := {self.tintColor}\n"

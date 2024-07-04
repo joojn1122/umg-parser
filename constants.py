@@ -21,6 +21,9 @@ def parse_vector2(alignment: str) -> tuple[float, float]:
     return (float(alignment_data[0].split("=")[1]), 
             float(alignment_data[1].split("=")[1]))
 
+def format_vector2(vector: tuple[float, float]) -> str:
+    return f"vector2{'{'} X := {vector[0]}, Y := {vector[1]} {'}'}"
+
 def parse_anchors(anchors: str) -> tuple[float, float, float, float]:
     _, min_xy, max_xy = anchors.split("X=")
 

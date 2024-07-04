@@ -1,6 +1,6 @@
 import re
 from typing import TypedDict
-from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float
+from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float, format_vector2
 
 registered_classes: list[type['Widget']] = []
 variables: list['Widget'] = []
@@ -21,10 +21,7 @@ class Widget:
     
     def __init__(self, object: ParsedWidget) -> None:
         self.Name = object['props'].get("Name", "").replace("\"", "")
-        
-    def format_vector2(self, vector: tuple[float, float]) -> str:
-        return f"vector2{ '{'}X := {vector[0]}, Y := {vector[1]}{'}' }"
-
+    
     def codify(self, indent: int, parsed_objects: list['Widget']) -> str:
         return ""
     
@@ -33,9 +30,6 @@ class Widget:
 
     def __repr__(self) -> str:
         return self.__str__()
-    
-    def i(self, indent: int) -> str:
-        return INDENT * indent
     
 # Slots
 class Slot(Widget):
@@ -108,7 +102,7 @@ class CanvasSlot(Slot):
             result += f"{i(indent + 1)}Offsets := Offsets({self.Offsets.get('Left', '0.0')}, {self.Offsets.get('Top', '0.0')}{f', {self.Offsets.get('Right', '0.0')}, {self.Offsets.get('Bottom', '0.0')}' if not self.SizeToContent else ''})\n"
 
         if self.Alignment:
-            result += f"{i(indent + 1)}Alignment := {self.format_vector2(self.Alignment)}\n"
+            result += f"{i(indent + 1)}Alignment := {format_vector2(self.Alignment)}\n"
 
         return result + f"{i(indent + 1)}Widget := " + self.format_widget(indent + 1, parsed_objects)
 
@@ -137,14 +131,13 @@ class StackBoxSlot(Slot):
         size = props.get("Size", None)
         if(size):
             size_rule = re.search(r"SizeRule=([a-zA-Z]+)", size)
-            if(size_rule):
-                result = size_rule.group(1)
-                if(result == "Fill"):
-                    self.distribution = 1
 
-                    value = re.search(r"Value=([0-9\.-]+)", size)
-                    if(value):
-                        self.distribution = float(value.group(1))
+            if(size_rule and size_rule.group(1) == "Fill"):
+                self.distribution = 1.0
+
+                value = re.search(r"Value=([0-9\.-]+)", size)
+                if(value):
+                    self.distribution = float(value.group(1))
 
     def __str__(self) -> str:
         return f"StackBoxSlot(Name={self.Name}, Padding={self.padding}, HorizontalAlignment={self.horizontal_alignment}, VerticalAlignment={self.vertical_alignment}, Content={self.Content})\n"
@@ -248,8 +241,8 @@ class StackBox(Slotable):
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         result = \
 f'''stack_box:
-{INDENT * (indent + 1)}Orientation := orientation.{"Vertical" if self.vertical else "Horizontal"}
-{INDENT * (indent + 1)}Slots := array:
+{i(indent + 1)}Orientation := orientation.{"Vertical" if self.vertical else "Horizontal"}
+{i(indent + 1)}Slots := array:
 '''
 
         return result + self.format_slots(indent + 2, parsed_objects)
