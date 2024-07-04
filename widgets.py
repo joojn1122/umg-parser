@@ -1,0 +1,168 @@
+from slots import CanvasSlot, StackBoxSlot, Widget, ParsedWidget
+import re
+from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i
+
+class Button(Widget):
+    text: str
+    verse_name: str
+
+    def __init__(self, object: ParsedWidget, verse_name: str):
+        super().__init__(object)
+
+        self.verse_name = verse_name
+
+        self.text = object['props'].get("Text", "")
+        matched = re.search(r"\"(.*?)\"", self.text)
+
+        if matched:
+            self.text = matched.group(1)
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}(Text={self.text})"
+    
+    def __repr__(self) -> str:
+        return self.__str__()
+    
+    def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
+        if not self.text:
+            return self.verse_name + "{}\n"
+        
+        return f"{self.verse_name}:\n{i(indent + 1)}DefaultText := \"{self.text}\".Msg()\n"
+
+class QuietButton(Button):
+    ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C"
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object, "button_quiet")
+
+class RegularButton(Button):
+    ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Regular.UEFN_Button_Regular_C"
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object, "button_regular")
+
+class LoudButton(Button):
+    ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C"
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object, "button_loud")
+
+class Image(Widget):
+    ClassName: str = "/Script/UMG.Image"
+
+    size: tuple[float, float]
+    path: str | None
+    tintColor: str | None
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object)
+
+        brush = object['props'].get("Brush", "")
+
+        imageSize = re.search(r"ImageSize=\((.*?)\)", brush)
+        resourceWidget = re.search(r"ResourceObject=\"(.*?)\"", brush)
+        tintColor = parse_color(brush)
+
+        self.size = (32.0, 32.0)
+        self.path = None
+        self.tintColor = None
+
+        if imageSize:
+            self.size = parse_vector2(imageSize.group(1))
+
+        if resourceWidget:
+            path = resourceWidget.group(1).split("'")[1] # get the path only
+            # remove project name and file extension and replace / with .
+            self.path = path.split("/", 2)[2].split(".")[0].replace("/", ".")
+        
+        if tintColor:
+            # Convert to hex
+            self.tintColor = color2hex(*tintColor)
+            self.tintColor = f"MakeColorFromHex(\"{self.tintColor}\")"
+
+    def __str__(self) -> str:
+        return f"Image(Size={self.size}, Path={self.path})"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+    
+    def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
+        if(self.path == None): # Color blocks doesn't exist in the UMG, so use a texture block instead with empty path and tint color
+            result = "color_block:\n"
+            
+            if(self.tintColor):
+                result += f"{i(indent + 1)}DefaultColor := {self.tintColor}\n"
+
+            if(self.size != (0, 0)):
+                result += f"{i(indent + 1)}DefaultDesiredSize := {self.format_vector2(self.size)}\n"
+
+            return result
+        
+        result = "texture_block:\n"
+        result += f"{i(indent + 1)}DefaultImage := {self.path}\n"
+
+        if(self.size != (0, 0)):
+            result += f"{i(indent + 1)}DefaultDesiredSize := {self.format_vector2(self.size)}\n"
+
+        if(self.tintColor):
+            result += f"{i(indent + 1)}DefaultTintColor := {self.tintColor}\n"
+
+        return result
+        
+class TextBlock(Widget):
+    ClassName: str = "/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C"
+
+    text: str
+    color: str | None
+    opacity: float
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object)
+
+        self.text = object['props'].get("Text", "")
+        matched = re.findall(r"\"(.*?)\"", self.text)
+
+        color = object['props'].get("ColorAndOpacity", "")
+        color = parse_color(color)
+
+        self.color = None
+        self.opacity = 1
+
+        if len(matched) > 0:
+            self.text = matched[-1]
+
+        if color:
+            self.color = rgb2hex(*color[:3]) # Set alpha to 1
+            self.opacity = color[3]
+
+            self.color = f"MakeColorFromHex(\"{self.color}\")"
+
+    def __str__(self) -> str:
+        return f"TextBlock(Text={self.text})"
+    
+    def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
+        # Use CreateText function for ordinary text blocks
+        if self.text and self.opacity == 1.0:
+            return f"CreateText(\"{self.text}\".Msg(), {self.color or 'NamedColors.White'})\n"
+
+        result = "text_block:\n"
+
+        if self.text:
+            result += f"{i(indent)}DefaultText := \"{self.text}\".Msg()\n"
+
+        if self.color:
+            result += f"{i(indent)}DefaultTextColor := {self.color}\n"
+
+        if self.opacity != 1.0:
+            result += f"{i(indent)}DefaultOpacity := {self.opacity}\n"
+
+        return result
+
+class WidgetSlotPair(Widget):
+    ClassName: str = "/Script/UMGEditor.WidgetSlotPair"
+    WidgetName: str
+
+    def __init__(self, object: ParsedWidget) -> None:
+        super().__init__(object)
+
+        self.WidgetName = object['props'].get("WidgetName", "").replace("\"", "")

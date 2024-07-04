@@ -1,0 +1,366 @@
+Begin Object Class=/Script/UMG.CanvasPanel Name="CanvasPanel_30" ExportPath="/Script/UMG.CanvasPanel'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30'"
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_5" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_5'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_8" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_8'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_0" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_0'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_4" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_4'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_18" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_18'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_17" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_17'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_15" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_15'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_13" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_13'"
+   End Object
+   Begin Object Class=/Script/UMG.CanvasPanelSlot Name="CanvasPanelSlot_14" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_14'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_5" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_5'"
+      LayoutData=(Offsets=(Top=44.707310,Right=831.816833,Bottom=59.518517),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.StackBox'StackBox_5'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_8" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_8'"
+      LayoutData=(Offsets=(Top=194.448456,Right=199.441055,Bottom=57.997997),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.500000))
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C'_CloseBtn'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_0" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_0'"
+      LayoutData=(Offsets=(Right=900.000000,Bottom=500.000000),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.500000))
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.Image'Image_0'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_4" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_4'"
+      LayoutData=(Offsets=(Left=22.022022,Top=-65.187172,Right=682.345947,Bottom=52.704811),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.StackBox'StackBox_4'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_18" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_18'"
+      LayoutData=(Offsets=(Top=-227.200150,Right=165.000000,Bottom=41.000000),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      bAutoSize=True
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.StackBox'StackBox_6'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_17" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_17'"
+      LayoutData=(Offsets=(Top=-166.555283,Bottom=40.000000),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      bAutoSize=True
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.Image'Image_4'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_15" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_15'"
+      LayoutData=(Offsets=(Top=20.712227,Bottom=40.000000),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      bAutoSize=True
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.Image'Image_3'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_13" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_13'"
+      LayoutData=(Offsets=(Left=-2.191162,Top=-149.253571),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      bAutoSize=True
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.StackBox'StackBox_0'"
+   End Object
+   Begin Object Name="CanvasPanelSlot_14" ExportPath="/Script/UMG.CanvasPanelSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.CanvasPanel_30.CanvasPanelSlot_14'"
+      LayoutData=(Offsets=(Top=-95.937576,Bottom=40.000000),Anchors=(Minimum=(X=0.500000,Y=0.500000),Maximum=(X=0.500000,Y=0.500000)),Alignment=(X=0.500000,Y=0.000000))
+      bAutoSize=True
+      Parent="/Script/UMG.CanvasPanel'CanvasPanel_30'"
+      Content="/Script/UMG.Image'Image_2'"
+   End Object
+   Slots(0)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_0'"
+   Slots(1)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_8'"
+   Slots(2)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_18'"
+   Slots(3)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_13'"
+   Slots(4)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_4'"
+   Slots(5)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_5'"
+   Slots(6)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_14'"
+   Slots(7)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_17'"
+   Slots(8)="/Script/UMG.CanvasPanelSlot'CanvasPanelSlot_15'"
+   bExpandedInDesigner=True
+End Object
+Begin Object Class=/Script/UMGEditor.WidgetSlotPair Name="WidgetSlotPair_35" ExportPath="/Script/UMGEditor.WidgetSlotPair'/Engine/Transient.WidgetSlotPair_35'"
+   WidgetName="CanvasPanel_30"
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image_0" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image_0'"
+   Brush=(TintColor=(SpecifiedColor=(R=0.000000,G=0.023153,B=0.208637,A=1.000000)))
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C Name="_CloseBtn" ExportPath="/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._CloseBtn'"
+   SingleText=False
+   Text=INVTEXT("CLOSE")
+   MinHeight=80
+   NormalStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   SelectedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   DisabledStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   LockedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   DisplayLabel="_CloseBtn"
+End Object
+Begin Object Class=/Script/UMG.StackBox Name="StackBox_6" ExportPath="/Script/UMG.StackBox'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_6'"
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_6.StackBoxSlot_1'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_6.StackBoxSlot_0'"
+   End Object
+   Begin Object Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_6.StackBoxSlot_1'"
+      Padding=(Right=25.000000)
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_6'"
+      Content="/Script/UMG.Image'Image_1'"
+   End Object
+   Begin Object Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_6.StackBoxSlot_0'"
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_6'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'UEFN_TextBlock_C_6'"
+   End Object
+   Slots(0)="/Script/UMG.StackBoxSlot'StackBoxSlot_1'"
+   Slots(1)="/Script/UMG.StackBoxSlot'StackBoxSlot_0'"
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image_1" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image_1'"
+   Brush=(ImageSize=(X=50.000000,Y=50.000000),ResourceObject="/Script/Engine.Texture2D'/HackerTycoon/Images/Btc.Btc'")
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="UEFN_TextBlock_C_6" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.UEFN_TextBlock_C_6'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "BCB50101476F494684F4549170E40B12", "BTC Exchange")
+   ShadowOffset=(X=1.400000,Y=1.400000)
+   ShadowColorAndOpacity=(R=0.000000,G=0.000000,B=0.000000,A=1.000000)
+End Object
+Begin Object Class=/Script/UMG.StackBox Name="StackBox_0" ExportPath="/Script/UMG.StackBox'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_0'"
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_0.StackBoxSlot_1'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_0.StackBoxSlot_0'"
+   End Object
+   Begin Object Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_0.StackBoxSlot_1'"
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_0'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'_BtcPriceText'"
+   End Object
+   Begin Object Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_0.StackBoxSlot_0'"
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_0'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'UEFN_TextBlock_C_0'"
+   End Object
+   Slots(0)="/Script/UMG.StackBoxSlot'StackBoxSlot_0'"
+   Slots(1)="/Script/UMG.StackBoxSlot'StackBoxSlot_1'"
+   bExpandedInDesigner=True
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="UEFN_TextBlock_C_0" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.UEFN_TextBlock_C_0'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "337A77F849B18460B22DD194FEF811FC", "BTC PRICE: ")
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="_BtcPriceText" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._BtcPriceText'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "4A1E54EC4369CF04AEA81DB1623A4527", "$ 62,500")
+   ColorAndOpacity=(SpecifiedColor=(R=0.386430,G=1.000000,B=0.278894,A=1.000000))
+   DisplayLabel="_BtcPriceText"
+End Object
+Begin Object Class=/Script/UMG.StackBox Name="StackBox_4" ExportPath="/Script/UMG.StackBox'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4'"
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_0'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_1'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_2" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_2'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_3" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_3'"
+   End Object
+   Begin Object Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_0'"
+      Size=(SizeRule=Fill)
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_4'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'_SellShowText'"
+   End Object
+   Begin Object Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_1'"
+      Padding=(Left=35.000000)
+      HorizontalAlignment=HAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_4'"
+      Content="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'_Btc01MultBtn'"
+   End Object
+   Begin Object Name="StackBoxSlot_2" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_2'"
+      Padding=(Left=35.000000)
+      HorizontalAlignment=HAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_4'"
+      Content="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'_Btc1MultBtn'"
+   End Object
+   Begin Object Name="StackBoxSlot_3" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_4.StackBoxSlot_3'"
+      Padding=(Left=35.000000)
+      HorizontalAlignment=HAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_4'"
+      Content="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'_Btc100MultBtn'"
+   End Object
+   Slots(0)="/Script/UMG.StackBoxSlot'StackBoxSlot_0'"
+   Slots(1)="/Script/UMG.StackBoxSlot'StackBoxSlot_1'"
+   Slots(2)="/Script/UMG.StackBoxSlot'StackBoxSlot_2'"
+   Slots(3)="/Script/UMG.StackBoxSlot'StackBoxSlot_3'"
+   bExpandedInDesigner=True
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="_SellShowText" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._SellShowText'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "078E73A8491912E5482D789AA706F627", "Sell (x0.1)")
+   ColorAndOpacity=(SpecifiedColor=(R=0.215861,G=0.300544,B=0.520996,A=1.000000))
+   DisplayLabel="_SellShowText"
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C Name="_Btc01MultBtn" ExportPath="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._Btc01MultBtn'"
+   Block_Background="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'WidgetTree_0.Block_Background'"
+   Block_SecondaryText="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'WidgetTree_0.Block_SecondaryText'"
+   Block_Text="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'WidgetTree_0.Block_Text'"
+   Content="/Script/UMG.GridPanel'WidgetTree_0.Content'"
+   HoldIcon="/Script/UMG.Image'WidgetTree_0.HoldIcon'"
+   HoldProgressBar="/Script/UMG.Image'WidgetTree_0.HoldProgressBar'"
+   Prompt="/Script/UMG.GridPanel'WidgetTree_0.Prompt'"
+   Root="/Script/UMG.GridPanel'WidgetTree_0.Root'"
+   VerticalBox_Text="/Script/UMG.VerticalBox'WidgetTree_0.VerticalBox_Text'"
+   Text=INVTEXT("x0.1")
+   ModularBlocks(0)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'WidgetTree_0.Block_Text'"
+   ModularBlocks(1)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'WidgetTree_0.Block_SecondaryText'"
+   ModularBlocks(2)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'WidgetTree_0.Block_Background'"
+   MinHeight=56
+   NormalStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   SelectedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   DisabledStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   LockedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   InputActionWidget="/Script/CommonUI.CommonActionWidget'WidgetTree_0.InputActionWidget'"
+   DisplayLabel="_Btc01MultBtn"
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C Name="_Btc1MultBtn" ExportPath="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._Btc1MultBtn'"
+   Block_Background="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background'"
+   Block_SecondaryText="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_SecondaryText'"
+   Block_Text="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Text'"
+   Content="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Content'"
+   HoldIcon="/Script/UMG.Image'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.HoldIcon'"
+   HoldProgressBar="/Script/UMG.Image'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.HoldProgressBar'"
+   Prompt="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Prompt'"
+   Root="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background.WidgetTree_0.Root'"
+   VerticalBox_Text="/Script/UMG.VerticalBox'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.VerticalBox_Text'"
+   Text=INVTEXT("x1")
+   ModularBlocks(0)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Text'"
+   ModularBlocks(1)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_SecondaryText'"
+   ModularBlocks(2)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background'"
+   MinHeight=56
+   NormalStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   SelectedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   DisabledStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   LockedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   InputActionWidget="/Script/CommonUI.CommonActionWidget'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.InputActionWidget'"
+   DisplayLabel="_Btc1MultBtn"
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C Name="_Btc100MultBtn" ExportPath="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._Btc100MultBtn'"
+   Block_Background="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background'"
+   Block_SecondaryText="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_SecondaryText'"
+   Block_Text="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Text'"
+   Content="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Content'"
+   HoldIcon="/Script/UMG.Image'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.HoldIcon'"
+   HoldProgressBar="/Script/UMG.Image'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.HoldProgressBar'"
+   Prompt="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Prompt'"
+   Root="/Script/UMG.GridPanel'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background.WidgetTree_0.Root'"
+   VerticalBox_Text="/Script/UMG.VerticalBox'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.VerticalBox_Text'"
+   Text=INVTEXT("x100")
+   ModularBlocks(0)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Text'"
+   ModularBlocks(1)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Text.WBP_UEFN_Block_Text_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_SecondaryText'"
+   ModularBlocks(2)="/FortUILibrary/UGC/Widgets/Buttons/Blocks/WBP_UEFN_Block_Background.WBP_UEFN_Block_Background_C'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.Block_Background'"
+   MinHeight=56
+   NormalStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   SelectedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   DisabledStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   LockedStyle=(Normal=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Hovered=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Pressed=(DrawAs=NoDrawType,TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))),Disabled=(ImageSize=(X=32.000000,Y=32.000000),TintColor=(SpecifiedColor=(R=1.000000,G=1.000000,B=1.000000,A=0.000000))))
+   InputActionWidget="/Script/CommonUI.CommonActionWidget'/Engine/Transient.World_8:BtcUI_C_9.WidgetTree_0.UEFN_Button_Loud_C.WidgetTree_0.InputActionWidget'"
+   DisplayLabel="_Btc100MultBtn"
+End Object
+Begin Object Class=/Script/UMG.StackBox Name="StackBox_5" ExportPath="/Script/UMG.StackBox'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_5'"
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_5.StackBoxSlot_1'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_5.StackBoxSlot_0'"
+   End Object
+   Begin Object Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_5.StackBoxSlot_1'"
+      Padding=(Right=100.000000)
+      Size=(SizeRule=Fill)
+      HorizontalAlignment=HAlign_Right
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_5'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'_CashText'"
+   End Object
+   Begin Object Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_5.StackBoxSlot_0'"
+      Size=(SizeRule=Fill)
+      HorizontalAlignment=HAlign_Left
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_5'"
+      Content="/Script/UMG.Overlay'Overlay_0'"
+   End Object
+   Slots(0)="/Script/UMG.StackBoxSlot'StackBoxSlot_1'"
+   Slots(1)="/Script/UMG.StackBoxSlot'StackBoxSlot_0'"
+   bExpandedInDesigner=True
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="_CashText" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._CashText'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "AF391BF548A36765E525A28DA308843A", "+ $ 1,200")
+   ColorAndOpacity=(SpecifiedColor=(R=0.386430,G=1.000000,B=0.278894,A=1.000000))
+   DisplayLabel="_CashText"
+End Object
+Begin Object Class=/Script/UMG.Overlay Name="Overlay_0" ExportPath="/Script/UMG.Overlay'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Overlay_0'"
+   Begin Object Class=/Script/UMG.OverlaySlot Name="OverlaySlot_0" ExportPath="/Script/UMG.OverlaySlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Overlay_0.OverlaySlot_0'"
+   End Object
+   Begin Object Class=/Script/UMG.OverlaySlot Name="OverlaySlot_3" ExportPath="/Script/UMG.OverlaySlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Overlay_0.OverlaySlot_3'"
+   End Object
+   Begin Object Name="OverlaySlot_0" ExportPath="/Script/UMG.OverlaySlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Overlay_0.OverlaySlot_0'"
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.Overlay'Overlay_0'"
+      Content="/Script/UMG.StackBox'StackBox_3'"
+   End Object
+   Begin Object Name="OverlaySlot_3" ExportPath="/Script/UMG.OverlaySlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Overlay_0.OverlaySlot_3'"
+      Padding=(Left=-50.000000,Right=-50.000000)
+      HorizontalAlignment=HAlign_Fill
+      VerticalAlignment=VAlign_Fill
+      Parent="/Script/UMG.Overlay'Overlay_0'"
+      Content="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'_BtcSellBtn'"
+   End Object
+   Slots(0)="/Script/UMG.OverlaySlot'OverlaySlot_0'"
+   Slots(1)="/Script/UMG.OverlaySlot'OverlaySlot_3'"
+   bExpandedInDesigner=True
+End Object
+Begin Object Class=/Script/UMG.StackBox Name="StackBox_3" ExportPath="/Script/UMG.StackBox'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3'"
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_3" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_3'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_1'"
+   End Object
+   Begin Object Class=/Script/UMG.StackBoxSlot Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_0'"
+   End Object
+   Begin Object Name="StackBoxSlot_3" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_3'"
+      Parent="/Script/UMG.StackBox'StackBox_3'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'_BtcSellText'"
+   End Object
+   Begin Object Name="StackBoxSlot_1" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_1'"
+      Padding=(Left=25.000000,Right=15.000000)
+      HorizontalAlignment=HAlign_Center
+      VerticalAlignment=VAlign_Center
+      Parent="/Script/UMG.StackBox'StackBox_3'"
+      Content="/Script/UMG.Image'Image'"
+   End Object
+   Begin Object Name="StackBoxSlot_0" ExportPath="/Script/UMG.StackBoxSlot'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.StackBox_3.StackBoxSlot_0'"
+      Parent="/Script/UMG.StackBox'StackBox_3'"
+      Content="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'UEFN_TextBlock_C_3'"
+   End Object
+   Slots(0)="/Script/UMG.StackBoxSlot'StackBoxSlot_0'"
+   Slots(1)="/Script/UMG.StackBoxSlot'StackBoxSlot_1'"
+   Slots(2)="/Script/UMG.StackBoxSlot'StackBoxSlot_3'"
+   DisplayLabel="StackBox_3"
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="UEFN_TextBlock_C_3" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.UEFN_TextBlock_C_3'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "75213B3F4D19ACC6FC2D1DBE9C60D078", "SELL")
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image'"
+   Brush=(ResourceObject="/Script/Engine.Texture2D'/HackerTycoon/Images/Btc.Btc'")
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C Name="_BtcSellText" ExportPath="/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._BtcSellText'"
+   Text=NSLOCTEXT("[F93D947200510559B7CED0225225D302]", "996E942B4B62449901611191F192D414", "0.1")
+   DisplayLabel="_BtcSellText"
+End Object
+Begin Object Class=/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C Name="_BtcSellBtn" ExportPath="/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree._BtcSellBtn'"
+   Text=""
+   DisplayLabel="_BtcSellBtn"
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image_2" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image_2'"
+   Brush=(ImageSize=(X=830.006104,Y=1.000000),TintColor=(SpecifiedColor=(R=0.033105,G=0.090842,B=0.313989,A=1.000000)))
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image_4" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image_4'"
+   Brush=(ImageSize=(X=830.006104,Y=1.000000),TintColor=(SpecifiedColor=(R=0.033105,G=0.090842,B=0.313989,A=1.000000)))
+End Object
+Begin Object Class=/Script/UMG.Image Name="Image_3" ExportPath="/Script/UMG.Image'/HackerTycoon/UI/BtcUI.BtcUI:WidgetTree.Image_3'"
+   Brush=(ImageSize=(X=830.006104,Y=1.000000),TintColor=(SpecifiedColor=(R=0.033105,G=0.090842,B=0.313989,A=1.000000)))
+End Object
