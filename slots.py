@@ -1,6 +1,7 @@
 import re
 from typing import TypedDict
 from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float, format_vector2
+from rich import print
 
 registered_classes: list[type['Widget']] = []
 variables: list['Widget'] = []
@@ -35,6 +36,11 @@ class Widget:
 class Slot(Widget):
     Content: str
 
+    def __init__(self, object: ParsedWidget) -> None:
+        super().__init__(object)
+
+        self.Content = object['props'].get("Content", "").split("'")[1].split("'")[0]
+
     def format_widget(self, indent: int, parsed_objects: list[Widget]) -> str:
         obj = next((obj for obj in parsed_objects if obj.Name == self.Content), None)
         if obj is None:
@@ -42,7 +48,9 @@ class Slot(Widget):
 
         if obj.Name.startswith("_"):
             variables.append(obj)
-            return obj.Name[1:] + "\n\n" # Put a newline at the end for better formatting
+            var_name = obj.Name[1:].split("_FONT")[0]
+
+            return var_name + "\n\n" # Put a newline at the end for better formatting
 
         return obj.codify(indent, parsed_objects) + "\n" # Also here
         
@@ -61,8 +69,7 @@ class CanvasSlot(Slot):
         props = object['props']
 
         self.SizeToContent = props.get("bAutoSize", "False") == "True"
-        self.Content = props.get("Content", "").split("'")[1].split("'")[0]
-
+        
         self.Offsets = None
         self.Anchors = None
         self.Alignment = None
@@ -99,7 +106,7 @@ class CanvasSlot(Slot):
         result += f"{i(indent + 1)}SizeToContent := {'true' if self.SizeToContent else 'false'}\n"
 
         if self.Offsets:
-            result += f"{i(indent + 1)}Offsets := Offsets({self.Offsets.get('Left', '0.0')}, {self.Offsets.get('Top', '0.0')}{f', {self.Offsets.get('Right', '0.0')}, {self.Offsets.get('Bottom', '0.0')}' if not self.SizeToContent else ''})\n"
+            result += f"{i(indent + 1)}Offsets := Offsets({self.Offsets.get('Left', '0.0')}, {self.Offsets.get('Top', '0.0')}{f', {self.Offsets.get('Right', '100.0')}, {self.Offsets.get('Bottom', '30.0')}' if not self.SizeToContent else ''})\n"
 
         if self.Alignment:
             result += f"{i(indent + 1)}Alignment := {format_vector2(self.Alignment)}\n"
@@ -119,8 +126,6 @@ class StackBoxSlot(Slot):
         super().__init__(object)
 
         props = object['props']
-
-        self.Content = props.get("Content", "").split("'")[1].split("'")[0]
 
         self.vertical_alignment = props.get("VerticalAlignment", "VAlign_Fill").replace("VAlign_", "")
         self.horizontal_alignment = props.get("HorizontalAlignment", "HAlign_Fill").replace("HAlign_", "")
@@ -167,7 +172,6 @@ class OverlaySlot(StackBoxSlot):
         return super().codify(indent, parsed_objects).replace("stack_box_slot", "overlay_slot", 1)
 
 # Slotables
-from rich import print
 class Slotable(Widget):
     slots: list[Slot]
 
@@ -180,6 +184,11 @@ class Slotable(Widget):
             try:
                 if(slot_class.ClassName in child['props'].get('ExportPath', "") and child["props"].get("Content")):
                     slot = slot_class(child)
+
+                    # Ignore slots with __ignore in the content
+                    if("__ignore" in slot.Content):
+                        continue
+
                     self.slots.append(slot)
             except:
                 print(f"Error parsing slot {child['props'].get("ExportPath")}")
@@ -212,8 +221,11 @@ class Slotable(Widget):
         return self.__str__()
 
     def format_slots(self, indent: int, parsed_objects: list[Widget]) -> str:
-        result = ""
-
+        if len(self.slots) == 0:
+            return ""
+        
+        result = f"{i(indent - 1)}Slots := array:\n"
+        
         for slot in self.slots:
             result += slot.codify(indent, parsed_objects)
 
@@ -226,7 +238,7 @@ class Canvas(Slotable):
         super().__init__(object, CanvasSlot)
 
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
-        return f"canvas:\n{INDENT * (indent + 1)}Slots := array:\n" + self.format_slots(indent + 2, parsed_objects)
+        return f"canvas:\n" + self.format_slots(indent + 2, parsed_objects)
 
 class StackBox(Slotable):
     ClassName: str = "/Script/UMG.StackBox"
@@ -242,7 +254,6 @@ class StackBox(Slotable):
         result = \
 f'''stack_box:
 {i(indent + 1)}Orientation := orientation.{"Vertical" if self.vertical else "Horizontal"}
-{i(indent + 1)}Slots := array:
 '''
 
         return result + self.format_slots(indent + 2, parsed_objects)
@@ -254,4 +265,4 @@ class Overlay(Slotable):
         super().__init__(object, OverlaySlot)
 
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
-        return f"overlay:\n{INDENT * (indent + 1)}Slots := array:\n" + self.format_slots(indent + 2, parsed_objects)
+        return f"overlay:\n" + self.format_slots(indent + 2, parsed_objects)

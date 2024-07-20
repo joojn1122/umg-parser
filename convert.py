@@ -62,7 +62,7 @@ def convert(content: str, indent: int = 0) -> str:
             if rclass.ClassName == className:
                 widgets.append(rclass(widget))
 
-    root: Slotable
+    root: Widget | None = None
     for widget in widgets:
         if isinstance(widget, WidgetSlotPair):
             for w in widgets:
@@ -70,12 +70,16 @@ def convert(content: str, indent: int = 0) -> str:
                     root = w
                     break
             break
-    
+
+    if root is None:
+        root = widgets[0]
+
     result = f"{i(indent)}Canvas := " + root.codify(indent, widgets)
     variables_str = ""
 
     for variable in variables:
-        variables_str += i(indent) + variable.Name[1:] + " := " + variable.codify(indent, widgets) + "\n"
+        var_name = variable.Name[1:].split("_FONT")[0]
+        variables_str += i(indent) + var_name + " := " + variable.codify(indent, widgets) + "\n"
 
     variables.clear()
     return variables_str + result
@@ -102,16 +106,3 @@ def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
 
     with open(file, "w") as f:
         f.writelines(pre + "\n" + content + post)
-
-if __name__ == "__main__":
-    with open("ui.txt", "r") as f:
-        ui = f.read()
-
-    result = convert(ui, 1)
-
-    replace_file(
-    r"C:\Users\joojn\Documents\Fortnite Projects\HackerTycoon\Plugins\HackerTycoon\Content\Screens\BtcSellScreen.verse", 
-    result, 
-    "CloseBtn := button_loud", 
-    "Screen := btc_exchange_screen"
-    )

@@ -1,4 +1,4 @@
-from slots import CanvasSlot, StackBoxSlot, Widget, ParsedWidget
+from slots import Widget, ParsedWidget
 import re
 from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2
 
@@ -112,6 +112,7 @@ class TextBlock(Widget):
     text: str
     color: str | None
     opacity: float
+    font_size: int
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object)
@@ -122,11 +123,22 @@ class TextBlock(Widget):
         color = object['props'].get("ColorAndOpacity", "")
         color = parse_color(color)
 
+        font = object['props'].get("Font", "")
+        if not font:
+            self.font_size = 32
+        else:
+            font_size = re.search(r"Size=(\d+)", font)
+
+            if font_size:
+                self.font_size = int(font_size.group(1))
+            else:
+                self.font_size = 32
+
         self.color = None
         self.opacity = 1
 
         if len(matched) > 0:
-            self.text = matched[-1]
+            self.text = matched[-1].replace("\\r\\n", "\\n") # Fix Windows line endings
 
         if color:
             self.color = rgb2hex(*color[:3]) # Set alpha to 1
@@ -138,6 +150,10 @@ class TextBlock(Widget):
         return f"TextBlock(Text={self.text})"
     
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
+        if("FONT_" in self.Name):
+            font_name = re.sub("[0-9_]", "", self.Name.split("FONT_", 1)[1])
+            return f"{font_name}.Draw(\"{self.text}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
+        
         # Use CreateText function for ordinary text blocks
         if self.text and self.opacity == 1.0:
             return f"CreateText(\"{self.text}\".Msg(), {self.color or 'NamedColors.White'})\n"
