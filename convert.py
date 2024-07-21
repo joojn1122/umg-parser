@@ -85,7 +85,7 @@ def convert(content: str, indent: int = 0) -> str:
     return variables_str + result
 
 def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
-    with open(file, "r") as f:
+    with open(file, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
 
     start_line = -1
@@ -93,7 +93,7 @@ def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
 
     for i, line in enumerate(lines):
         if from_key in line:
-            start_line = i
+            start_line = i + 1
         elif to_key in line:
             end_line = i
 
@@ -104,5 +104,5 @@ def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
     pre = "\n".join(lines[:start_line])
     post = "\n".join(lines[end_line:])
 
-    with open(file, "w") as f:
-        f.writelines(pre + "\n" + content + post)
+    with open(file, "w", encoding="utf-8") as f:
+        f.write(pre + "\n" + content + post)
