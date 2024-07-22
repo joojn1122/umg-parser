@@ -78,7 +78,7 @@ def convert(content: str, indent: int = 0) -> str:
     variables_str = ""
 
     for variable in variables:
-        var_name = variable.Name[1:].split("_FONT")[0]
+        var_name = variable.DisplayName[1:].split("_FONT")[0]
         variables_str += i(indent) + var_name + " := " + variable.codify(indent, widgets) + "\n"
 
     variables.clear()

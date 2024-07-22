@@ -1,6 +1,8 @@
 from slots import Widget, ParsedWidget
 import re
 from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2
+from math import ceil
+from rich import print
 
 class Button(Widget):
     text: str
@@ -127,10 +129,10 @@ class TextBlock(Widget):
         if not font:
             self.font_size = 32
         else:
-            font_size = re.search(r"Size=(\d+)", font)
-
+            font_size = re.search(r"[,(]Size=(\d+)", font)
+            
             if font_size:
-                self.font_size = int(font_size.group(1))
+                self.font_size = ceil(int(font_size.group(1)) * 1.33)
             else:
                 self.font_size = 32
 

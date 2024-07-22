@@ -12,6 +12,7 @@ class ParsedWidget(TypedDict):
 
 class Widget:
     Name: str
+    DisplayName: str
     ClassName: str
 
     def __init_subclass__(cls) -> None:
@@ -22,6 +23,10 @@ class Widget:
     
     def __init__(self, object: ParsedWidget) -> None:
         self.Name = object['props'].get("Name", "").replace("\"", "")
+        self.DisplayName = object['props'].get("DisplayLabel", "").replace("\"", "")
+
+        if(self.DisplayName == ""):
+            self.DisplayName = self.Name
     
     def codify(self, indent: int, parsed_objects: list['Widget']) -> str:
         return ""
@@ -46,10 +51,14 @@ class Slot(Widget):
         if obj is None:
             return f"Script error: Widget {self.Content} not found\n"
 
-        if obj.Name.startswith("_"):
-            variables.append(obj)
-            var_name = obj.Name[1:].split("_FONT")[0]
+        if obj.DisplayName.startswith("$external_"):
+            name = obj.DisplayName[10:]
+            return name + "\n\n"
 
+        if obj.DisplayName.startswith("$"):
+            variables.append(obj)
+            var_name = obj.DisplayName[1:].split("_FONT")[0]
+            
             return var_name + "\n\n" # Put a newline at the end for better formatting
 
         return obj.codify(indent, parsed_objects) + "\n" # Also here

@@ -1,0 +1,27 @@
+{
+    "HackingPeopleUI": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\HackingScreen.verse",
+        "start": "# -- HACKING PEOPLE UI -- #",
+        "end": "# -- END HACKING PEOPLE UI -- #"
+    },
+    "BtcUI": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\BtcSellScreen.verse",
+        "start": "# -- BTC SELL UI -- #",
+        "end": "# -- END BTC SELL UI -- #"
+    },
+    "CheatMenuUI": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\CheatMenu.verse",
+        "start": "# -- CHEAT MENU UI -- #",
+        "end": "# -- END CHEAT MENU UI -- #"
+    },
+    "BinaryGameUI": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\Games.verse",
+        "start": "# -- BINARY GAME UI -- #",
+        "end": "# -- END BINARY GAME UI -- #"
+    },
+    "ClickInRangeUI": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\Games.verse",
+        "start": "# -- CLICK IN RANGE GAME UI -- #",
+        "end": "# -- END CLICK IN RANGE GAME UI -- #"
+    }
+}
