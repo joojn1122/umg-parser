@@ -3,7 +3,7 @@ Parses `UMG Widget` and converts it into `Verse UI`
 
 ## How to use
 - Open UMG Widget in UEFN, copy main Canvas
-- Paste clipboard into `ui.txt`
+- Paste clipboard into `ui.sh`
 - Edit `convert.py` to match your file 
 - Run `py convert.py`
 - Verse code will be generated

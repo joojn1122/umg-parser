@@ -4,6 +4,16 @@ INDENT = " " * 4
 def i(indent: int) -> str:
     return INDENT * indent
 
+# Format number
+def fn(num: float):
+    s = str(num)
+
+    if "." not in s:
+        return s + ".0"
+    
+    return s
+
+
 def parse_offsets(offsets: str) -> dict[str, float]:
     offsets_data = offsets.split(",")
 
@@ -25,18 +35,16 @@ def format_vector2(vector: tuple[float, float]) -> str:
     return f"vector2{'{'} X := {vector[0]}, Y := {vector[1]} {'}'}"
 
 def parse_anchors(anchors: str) -> tuple[float, float, float, float]:
-    _, min_xy, max_xy = anchors.split("X=")
+    xs = list(map(float, re.findall(r"(?<=X=)[\d\.]*", anchors)))
+    ys = list(map(float, re.findall(r"(?<=Y=)[\d\.]*", anchors)))
 
-    min_xy = min_xy.split("),")[0]
-    max_xy = max_xy[:-2]
-
-    min_x, min_y = min_xy.split(",Y=")
-    max_x, max_y = max_xy.split(",Y=")
-
-    return (float(min_x), 
-            float(min_y),
-            float(max_x),
-            float(max_y))
+    if len(xs) == 1:
+        if "Minimum" in anchors:
+            return (xs[0], ys[0], 0, 0)
+        else:
+            return (0, 0, xs[0], ys[0])
+        
+    return (xs[0], ys[0], xs[1], ys[1])
 
 class Padding:
     Left: float

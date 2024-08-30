@@ -63,14 +63,18 @@ def convert(content: str, indent: int = 0) -> str:
                 widgets.append(rclass(widget))
 
     root: Widget | None = None
+    slot_root: WidgetSlotPair | None = None
+
     for widget in widgets:
         if isinstance(widget, WidgetSlotPair):
+            slot_root = widget
+            
             for w in widgets:
                 if w.Name == widget.WidgetName and isinstance(w, Slotable):
                     root = w
                     break
             break
-
+    
     if root is None:
         root = widgets[0]
 

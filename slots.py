@@ -1,7 +1,8 @@
 import re
 from typing import TypedDict
-from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float, format_vector2
+from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float, format_vector2, fn
 from rich import print
+import traceback
 
 registered_classes: list[type['Widget']] = []
 variables: list['Widget'] = []
@@ -14,6 +15,7 @@ class Widget:
     Name: str
     DisplayName: str
     ClassName: str
+    props: dict
 
     def __init_subclass__(cls) -> None:
         if(getattr(cls, "ClassName", None) is None):
@@ -27,7 +29,9 @@ class Widget:
 
         if(self.DisplayName == ""):
             self.DisplayName = self.Name
-    
+
+        self.props = object['props']
+
     def codify(self, indent: int, parsed_objects: list['Widget']) -> str:
         return ""
     
@@ -93,10 +97,18 @@ class CanvasSlot(Slot):
 
             if offsets:
                 self.Offsets = parse_offsets(offsets.group(1))
+
+                if(all(o == 0.0 for o in self.Offsets.values())):
+                    self.Offsets = None
+
             if anchors:
                 self.Anchors = parse_anchors(anchors.group(1))
+
             if alignment:
                 self.Alignment = parse_vector2(alignment.group(1))
+
+                if(self.Alignment == (0.0, 0.0)):
+                    self.Alignment = None
 
         self.ZOrder = int(props.get("ZOrder", 0))
 
@@ -110,7 +122,7 @@ class CanvasSlot(Slot):
             result += f"{i(indent + 1)}ZOrder := {self.ZOrder}\n"
 
         if self.Anchors:
-            result += f"{i(indent + 1)}Anchors := Anchors({self.Anchors[0]}, {self.Anchors[1]}, {self.Anchors[2]}, {self.Anchors[3]})\n"
+            result += f"{i(indent + 1)}Anchors := Anchors({fn(self.Anchors[0])}, {fn(self.Anchors[1])}, {fn(self.Anchors[2])}, {fn(self.Anchors[3])})\n"
 
         result += f"{i(indent + 1)}SizeToContent := {'true' if self.SizeToContent else 'false'}\n"
 
@@ -199,8 +211,10 @@ class Slotable(Widget):
                         continue
 
                     self.slots.append(slot)
-            except:
+
+            except Exception as e:
                 print(f"Error parsing slot {child['props'].get("ExportPath")}")
+                traceback.print_exc()
                 pass
 
         # Sort slots

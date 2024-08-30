@@ -68,6 +68,7 @@ class Image(Widget):
         self.size = (32.0, 32.0)
         self.path = None
         self.tintColor = None
+        self.opacity = 1.0
 
         if imageSize:
             self.size = parse_vector2(imageSize.group(1))
@@ -76,12 +77,18 @@ class Image(Widget):
             path = resourceObject.group(1).split("'")[1] # get the path only
             # remove project name and file extension and replace / with .
             self.path = path.split("/", 2)[2].split(".")[0].replace("/", ".")
-        
+
         if tintColor:
             # Convert to hex
-            self.tintColor = color2hex(*tintColor)
+            if self.path == None:
+                self.opacity = tintColor[3]
+                self.tintColor = rgb2hex(*(tintColor[:3]))
+                
+            else:
+                self.tintColor = color2hex(*tintColor)
+            
             self.tintColor = f"MakeColorFromHex(\"{self.tintColor}\")"
-
+        
     def __str__(self) -> str:
         return f"Image(Size={self.size}, Path={self.path})"
 
@@ -94,6 +101,9 @@ class Image(Widget):
             
             if(self.tintColor):
                 result += f"{i(indent + 1)}DefaultColor := {self.tintColor}\n"
+
+            if(self.opacity != 1.0):
+               result += f"{i(indent + 1)}DefaultOpacity := {self.opacity}\n"
 
             result += f"{i(indent + 1)}DefaultDesiredSize := {format_vector2(self.size)}\n"
 
