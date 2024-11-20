@@ -1,57 +1,124 @@
 # UMG Parser
-Parses `UMG Widget` and converts it into `Verse UI`
+A tool to parse `UMG Widget` files and convert them into `Verse UI` code for use in Unreal Editor for Fortnite (UEFN).
 
-## How to use
-- Open UMG Widget in UEFN, copy main Canvas
-- Paste clipboard into `ui.sh`
-- Edit `convert.py` to match your file 
-- Run `py convert.py`
-- Verse code will be generated
+<img src="WBPToVerse.png" width="250px">
 
-## Declaring variables
-You can declare variable by naming the widget `$<NAME>`,
-putting `$` before the name<br>
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [How to Use](#how-to-use)
+    - [Declaring Variables](#1-declaring-variables)
+    - [Using Custom Fonts](#2-using-custom-fonts)
+    - [Placeholder Widgets](#3-placeholder-widgets)
+    - [External Widgets](#4-external-widgets)
+    - [Automatic Script Replacer](#5-automatic-script-replacer)
+4. [Supported Widgets](#supported-widgets)
+5. [To-Do](#to-do)
+6. [License](#license)
 
-**Example**: `$RewardText`
+---
 
-This will then create a `RewardText` variable before the canvas with the widget content.
+## Introduction
+**UMG Parser** simplifies the process of converting UMG Widget structures into `Verse UI` code. Whether you’re handling basic layouts, dynamic variables, or external widgets, this tool helps you streamline the development process in UEFN.
 
-## Using different font
-To change default fortnite font, name the widget like this: `FONT_<FONT_NAME>`
+---
 
-**Example:** `FONT_RobotoFont`
+## Installation
+Follow these steps to install and set up **UMG Parser**:
 
-This will create a widget using our `CustomFont`, which has to be created beforehand.
+1. Clone the repository (private):
+   ```bash
+   git clone https://github.com/joojn1122/UMG_Parser.git
+   cd UMG_Parser
+   ```
+2. Install required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Ensure Python 3.8 or higher is installed on your system.
 
-## Placeholder widgets
-Sometimes we want to create placeholder widgets which will fill the place and are dynamically created. We can create placeholder widget / ignore widget by putting `__ignore` in the name.
+4. (Optional) Set up environment variables for your project paths if needed.
 
-## External widgets
-You can also use widgets that are not created by the current UMG Widget eg. external widget. To use external widget name it `$external_<VARIABLE_NAME>`.
+---
 
-**Example:** `$external_ClickInRange.Widget`
+## How to Use
 
-## Automatic script replacer
-You can automatically replace a part of verse file when you change the UMG Widget. Create new entry in `uis/map.json` file and name it, then create new file in the same directory with the name you named it and `.sh` extension. Specity the path of the file, `start key` and `end key`. Put the content of root canvas into the `.sh` file and run `python main.py <name_of_the_entry>`.
-Indents will be generated automatically based on the `start key`.
+### 1. Declaring Variables
+Define variables by prefixing widget names with `$`. The parser generates these variables in the Verse code.
 
-This script will then replace content in range of `start-end key`.
+**Example:**
+```plaintext
+$RewardText
+```
+This creates a `RewardText` variable and assigns it the widget content.
 
-## Other
-To use font custom font and variable combine the two text like this:
+---
 
-`$<VARIABLE_NAME>_FONT_<FONT_NAME>`
+### 2. Using Custom Fonts
+To use a non-default font, prefix the widget name with `FONT_` followed by the font name.
 
-**Example:** `$RewardText_FONT_RobotoFont`
+**Example:**
+```plaintext
+FONT_RobotoFont
+```
+This applies the `RobotoFont` style to the widget.
 
-## Supported widgets
-Currently these are all supported widgets:
-- Canvas & CanvasSlot
-- StackBox & StackBoxSlot
-- Overlay & OverlaySlot
-- TextBlock
-- Image & ColorBlock
-- All buttons
+---
 
-## TO-DO
-- Add support to slider
+### 3. Placeholder Widgets
+Create placeholder or dynamically generated widgets by adding `__ignore` to the widget name. These widgets are skipped in the parsing process.
+
+---
+
+### 4. External Widgets
+To reference an external widget not part of the current UMG file, use `$external_<VARIABLE_NAME>` in the widget name.
+
+**Example:**
+```plaintext
+$external_ClickInRange.Widget
+```
+
+---
+
+### 5. Automatic Script Replacer
+Automate updates to Verse files by configuring a replacer script:
+
+1. Add an entry to `uis/map.json`:
+   ```json
+   {
+       "example_entry": {
+           "path": "path/to/file.verse",
+           "start_key": "// START_KEY",
+           "end_key": "// END_KEY"
+       }
+   }
+   ```
+2. Create a `.sh` file matching the entry name and include the root canvas content.
+3. Run the script:
+   ```bash
+   python main.py example_entry
+   ```
+The script replaces content between the specified keys with generated code.
+
+---
+
+## Supported Widgets
+Currently, the following widgets are supported:
+- **Canvas & CanvasSlot**
+- **StackBox & StackBoxSlot**
+- **Overlay & OverlaySlot**
+- **TextBlock**
+- **Image & ColorBlock**
+- **Buttons**
+
+---
+
+## To-Do
+Planned features:
+- Add support for sliders.
+- Expand widget compatibility for more UI components.
+
+---
+
+## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the `LICENSE` file for details.

@@ -114,7 +114,7 @@ class Image(Widget):
         result += f"{i(indent + 1)}DefaultDesiredSize := {format_vector2(self.size)}\n"
 
         if(self.tintColor):
-            result += f"{i(indent + 1)}DefaultTintColor := {self.tintColor}\n"
+            result += f"{i(indent + 1)}DefaultTint := {self.tintColor}\n"
 
         return result
         

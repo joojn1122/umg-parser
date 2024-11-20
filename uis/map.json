@@ -1,62 +1,7 @@
 {
-    "HackingPeopleUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\HackingScreen.verse",
-        "start": "# -- HACKING PEOPLE UI -- #",
-        "end": "# -- END HACKING PEOPLE UI -- #"
-    },
-    "BtcUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\BtcSellScreen.verse",
-        "start": "# -- BTC SELL UI -- #",
-        "end": "# -- END BTC SELL UI -- #"
-    },
-    "CheatMenuUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\CheatMenu.verse",
-        "start": "# -- CHEAT MENU UI -- #",
-        "end": "# -- END CHEAT MENU UI -- #"
-    },
-    "BinaryGameUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\Games.verse",
-        "start": "# -- BINARY GAME UI -- #",
-        "end": "# -- END BINARY GAME UI -- #"
-    },
-    "ClickInRangeUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\Games.verse",
-        "start": "# -- CLICK IN RANGE GAME UI -- #",
-        "end": "# -- END CLICK IN RANGE GAME UI -- #"
-    },
-    "RocketUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\RocketScreen.verse",
-        "start": "# -- START ROCKET UI -- #",
-        "end": "# -- END ROCKET UI -- #"
-    },
-    "ComputerUpgradeUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\PCInterface.verse",
-        "start": "# -- START UPGRADE SCREEN -- #",
-        "end": "# -- END UPGRADE SCREEN -- #"
-    },
-    "DarkWebUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\DarkWebScreen.verse",
-        "start": "# -- START DARK WEB UI -- #",
-        "end": "# -- END DARK WEB UI -- #"
-    },
-    "DarkWebRocketPageUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\DarkWebScreen.verse",
-        "start": "# -- START DARK WEB ROCKET PAGE UI -- #",
-        "end": "# -- END DARK WEB ROCKET PAGE UI -- #"
-    },
-    "DarkWebBtcBuyUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\DarkWebScreen.verse",
-        "start": "# -- START DARK WEB BTC PAGE UI -- #",
-        "end": "# -- END DARK WEB BTC PAGE UI -- #"
-    },
-    "DarkWebModsBuy": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\DarkWebScreen.verse",
-        "start": "# -- START DARK WEB MODS BUY UI -- #",
-        "end": "# -- END DARK WEB MODS BUY UI -- #"
-    },
-    "RebirthUI": {
-        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\HackerTycoon\\Plugins\\HackerTycoon\\Content\\Screens\\RebirthScreen.verse",
-        "start": "# -- START REBIRTH SCREEN -- #",
-        "end": "# -- END REBIRTH SCREEN -- #"
+    "GuitarHero": {
+        "path": "C:\\Users\\joojn\\Documents\\Fortnite Projects\\SkyscraperTycoon\\Plugins\\SkyscraperTycoon\\Content\\Screens\\GuitarHeroGame.verse",
+        "start": "# -- GUITAR HERO UI -- #",
+        "end": "# -- END GUITAR HERO UI -- #"
     }
 }
