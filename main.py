@@ -1,16 +1,20 @@
 from convert import convert, replace_file
 import sys
 import json
+import pyperclip
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        with open("ui.sh", "r", encoding="utf-8") as f:
-            ui = f.read()
+        # with open("ui.sh", "r", encoding="utf-8") as f:
+        #     ui = f.read()
+        ui = pyperclip.paste()
 
         result = convert(ui, 0)
 
         with open("result.verse", "w", encoding="utf-8") as f:
             f.write(result)
+
+        pyperclip.copy(result)
 
         exit()
 

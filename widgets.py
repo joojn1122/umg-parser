@@ -1,8 +1,7 @@
 from slots import Widget, ParsedWidget
 import re
-from constants import parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2
+from constants import format_color, parse_text, parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2, fn
 from math import ceil
-from rich import print
 
 class Button(Widget):
     text: str
@@ -12,12 +11,7 @@ class Button(Widget):
         super().__init__(object)
 
         self.verse_name = verse_name
-
-        self.text = object['props'].get("Text", "")
-        matched = re.search(r"\"(.*?)\"", self.text)
-
-        if matched:
-            self.text = matched.group(1)
+        self.text = parse_text(object['props'].get("Text", ""))
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(Text={self.text})"
@@ -125,17 +119,23 @@ class TextBlock(Widget):
     color: str | None
     opacity: float
     font_size: int
+    justification: str | None # Right or center
+
+    # shadow
+    shadowOffset: tuple[float, float] | None
+    shadowColor: tuple[float, float, float, float] | None
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object)
+        
+        props = object['props']
 
-        self.text = object['props'].get("Text", "")
-        matched = re.findall(r"\"(.*?)\"", self.text)
+        self.justification = props.get("Justification", None)
+        self.text = parse_text(props.get("Text", ""))
+        
+        color = parse_color(props.get("ColorAndOpacity", ""))
 
-        color = object['props'].get("ColorAndOpacity", "")
-        color = parse_color(color)
-
-        font = object['props'].get("Font", "")
+        font = props.get("Font", "")
         if not font:
             self.font_size = 32
         else:
@@ -146,20 +146,34 @@ class TextBlock(Widget):
             else:
                 self.font_size = 32
 
-        self.color = None
+        self.color = "NamedColors.White"
         self.opacity = 1
-
-        if len(matched) > 0:
-            self.text = matched[-1].replace("\\r\\n", "\\n") # Fix Windows line endings
-
+        
         if color:
-            self.color = rgb2hex(*color[:3]) # Set alpha to 1
+            self.color = format_color(color)
             self.opacity = color[3]
 
-            self.color = f"MakeColorFromHex(\"{self.color}\")"
+        # shadow
+        self.shadowColor = parse_color(props.get('ShadowColorAndOpacity', ''))
+        
+        shadowOffset = props.get('ShadowOffset', None)
+        self.shadowOffset = None if shadowOffset is None else parse_vector2(shadowOffset)
 
     def __str__(self) -> str:
         return f"TextBlock(Text={self.text})"
+    
+    def format_text(self) -> str:
+        if "{player}" in self.text:
+            pre, post = self.text.split("{player}", 1)
+
+            if not pre:
+                return f'Data.Player.Msg() + "{post}"'
+            elif not post:
+                return f'"{pre}" + Data.Player.Msg()'
+            else:
+                return f'"{pre}" + Data.Player.Msg() + "{post}"'
+
+        return f'\"{self.text}\".Msg()'
     
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         if("FONT_" in self.Name):
@@ -167,20 +181,64 @@ class TextBlock(Widget):
             return f"{font_name}.Draw(\"{self.text}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
         
         # Use CreateText function for ordinary text blocks
-        if self.text and self.opacity == 1.0:
-            return f"CreateText(\"{self.text}\".Msg(), {self.color or 'NamedColors.White'})\n"
+        if self.text and self.opacity == 1.0 and not self.justification and self.shadowColor and sum(self.shadowColor[:3]) == 0:
+            return f"CreateText({self.format_text()}, {self.color or 'NamedColors.White'})\n"
 
         result = "text_block:\n"
 
         if self.text:
-            result += f"{i(indent)}DefaultText := \"{self.text}\".Msg()\n"
+            result += f"{i(indent+1)}DefaultText := {self.format_text()}\n"
 
         if self.color:
-            result += f"{i(indent)}DefaultTextColor := {self.color}\n"
+            result += f"{i(indent+1)}DefaultTextColor := {self.color}\n"
 
         if self.opacity != 1.0:
-            result += f"{i(indent)}DefaultOpacity := {self.opacity}\n"
+            result += f"{i(indent+1)}DefaultOpacity := {self.opacity}\n"
 
+        if self.shadowOffset:
+            result += f"{i(indent+1)}DefaultShadowOffset := option. {format_vector2(self.shadowOffset)}\n"
+
+        if self.shadowColor:
+            result += f"{i(indent+1)}DefaultShadowColor := {format_color(self.shadowColor)}\n"
+            result += f"{i(indent+1)}DefaultShadowOpacity := {fn(self.shadowColor[3])}\n"
+
+        if self.justification:
+            result += f"{i(indent+1)}DefaultJustification := text_justification.{self.justification}\n"
+
+        return result
+
+class Slider(Widget):
+    ClassName: str = "/Game/Valkyrie/UMG/UEFN_Slider.UEFN_Slider_C"
+
+    min: float    # Pivot[0]
+    max: float    # Pivot[1]
+    value: float  # Shear[0]
+    step: float   # Shear[1]
+
+    def __init__(self, object: ParsedWidget):
+        super().__init__(object)
+
+        # Have to use pivot, because you can't change shit in UMG for some reason
+        pivot = object['props'].get("RenderTransformPivot", "(X=0.500000,Y=0.500000)")
+        self.min, self.max = parse_vector2(pivot)
+        self.value = self.min
+        self.step = 1.0
+
+        render_transform = object['props'].get('RenderTransform')
+        if render_transform:
+            shear = re.search(r"Shear=\((.*?)\)", render_transform)
+            if shear:
+                shear = parse_vector2(shear.group(1))
+                self.value, self.step = shear
+
+    def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
+        result = "slider_regular:\n"
+
+        result += f"{i(indent+1)}DefaultValue := {fn(self.value)}\n"
+        result += f"{i(indent+1)}DefaultMinValue := {fn(self.min)}\n"
+        result += f"{i(indent+1)}DefaultMaxValue := {fn(self.max)}\n"
+        result += f"{i(indent+1)}DefaultStepSize := {fn(self.step)}\n"
+        
         return result
 
 class WidgetSlotPair(Widget):

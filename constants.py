@@ -13,6 +13,16 @@ def fn(num: float):
     
     return s
 
+def format_color(color: tuple[float, float, float, float]):
+    rgb = color[:3]
+
+    if(sum(rgb) == 0):
+        return 'NamedColors.Black'
+    
+    if(sum(rgb) == 3):
+        return 'NamedColors.White'
+
+    return f'MakeColorFromHex("{rgb2hex(*rgb)}")'
 
 def parse_offsets(offsets: str) -> dict[str, float]:
     offsets_data = offsets.split(",")
@@ -26,7 +36,7 @@ def parse_offsets(offsets: str) -> dict[str, float]:
     return result
 
 def parse_vector2(alignment: str) -> tuple[float, float]:
-    alignment_data = alignment.split(",")
+    alignment_data = alignment.replace(")", "").replace("(", "").split(",")
 
     return (float(alignment_data[0].split("=")[1]), 
             float(alignment_data[1].split("=")[1]))
@@ -124,6 +134,7 @@ def parse_color(color: str) -> tuple[float, float, float, float] | None:
     if match:
         return (float(match.group(1)), float(match.group(2)), float(match.group(3)), float(match.group(4)))
     
+    return None
 
 def format_float(f: float) -> str:
     s = str(f)
@@ -132,3 +143,9 @@ def format_float(f: float) -> str:
         return s + ".0"
     
     return s
+
+def parse_text(text: str) -> str:
+    matched = re.findall(r"\"(.*?)\"", text)
+
+    # Gets last string from all string results
+    return matched[-1].replace("\\r\\n", "\\n") # Fix Windows line endings

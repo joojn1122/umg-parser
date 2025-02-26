@@ -88,8 +88,8 @@ Automate updates to Verse files by configuring a replacer script:
    {
        "example_entry": {
            "path": "path/to/file.verse",
-           "start_key": "// START_KEY",
-           "end_key": "// END_KEY"
+           "start_key": "# START_KEY",
+           "end_key": "# END_KEY"
        }
    }
    ```
@@ -102,6 +102,22 @@ The script replaces content between the specified keys with generated code.
 
 ---
 
+### 6. Slider
+Because of the way sliders are implemented in UMG, you can't specify any properties for the slider itself.
+The workaround is to use the `PivotPoint` property, meaning:
+```js
+MinValue = PivotPoint.X
+MaxValue = PivotPoint.Y
+
+// If Shear property is specified:
+DefaultValue = Shear.X
+Step = Shear.Y
+// Else
+DefaultValue = MinValue
+Step = 1
+```
+---
+
 ## Supported Widgets
 Currently, the following widgets are supported:
 - **Canvas & CanvasSlot**
@@ -110,13 +126,7 @@ Currently, the following widgets are supported:
 - **TextBlock**
 - **Image & ColorBlock**
 - **Buttons**
-
----
-
-## To-Do
-Planned features:
-- Add support for sliders.
-- Expand widget compatibility for more UI components.
+- **Slider**
 
 ---
 

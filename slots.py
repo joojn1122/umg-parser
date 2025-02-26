@@ -5,7 +5,6 @@ from rich import print
 import traceback
 
 registered_classes: list[type['Widget']] = []
-variables: list['Widget'] = []
 
 class ParsedWidget(TypedDict): 
     props: dict
@@ -16,6 +15,13 @@ class Widget:
     DisplayName: str
     ClassName: str
     props: dict
+
+    @property
+    def var_name(self) -> str:
+        return self.DisplayName[1:].split("_FONT")[0]
+
+    def is_var(self) -> bool:
+        return self.DisplayName.startswith("$")
 
     def __init_subclass__(cls) -> None:
         if(getattr(cls, "ClassName", None) is None):
@@ -44,6 +50,9 @@ class Widget:
 # Slots
 class Slot(Widget):
     Content: str
+    
+    variable: Widget | None = None
+    widget: Widget | None = None
 
     def __init__(self, object: ParsedWidget) -> None:
         super().__init__(object)
@@ -51,21 +60,24 @@ class Slot(Widget):
         self.Content = object['props'].get("Content", "").split("'")[1].split("'")[0]
 
     def format_widget(self, indent: int, parsed_objects: list[Widget]) -> str:
-        obj = next((obj for obj in parsed_objects if obj.Name == self.Content), None)
-        if obj is None:
+        self.widget = next((obj for obj in parsed_objects if obj.Name == self.Content), None)
+
+        if self.widget is None:
             return f"Script error: Widget {self.Content} not found\n"
 
-        if obj.DisplayName.startswith("$external_"):
-            name = obj.DisplayName[10:]
+        if self.widget.DisplayName.startswith("$external_"):
+            name = self.widget.DisplayName[10:]
             return name + "\n\n"
 
-        if obj.DisplayName.startswith("$"):
-            variables.append(obj)
-            var_name = obj.DisplayName[1:].split("_FONT")[0]
+        if self.widget.is_var():
+            self.variable = self.widget
             
-            return var_name + "\n\n" # Put a newline at the end for better formatting
+            # Trigger other variables
+            self.widget.codify(indent, parsed_objects)
 
-        return obj.codify(indent, parsed_objects) + "\n" # Also here
+            return self.widget.var_name + "\n\n" # Put a newline at the end for better formatting
+
+        return self.widget.codify(indent, parsed_objects) + "\n" # Also here
         
 class CanvasSlot(Slot):
     ClassName: str = "/Script/UMG.CanvasPanelSlot"
@@ -251,7 +263,7 @@ class Slotable(Widget):
         
         for slot in self.slots:
             result += slot.codify(indent, parsed_objects)
-
+        
         return result
 
 class Canvas(Slotable):

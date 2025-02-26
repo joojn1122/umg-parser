@@ -3,10 +3,46 @@ from slots import (
     Widget, 
     ParsedWidget,
     Slotable,
-    registered_classes,
-    variables
+    registered_classes
 )
+from collections import defaultdict, deque
 import re
+
+def sort_variables(variable_contents, variable_dependencies):
+    # Build the adjacency list and in-degree count for the dependency graph
+    adjacency_list = defaultdict(list)
+    in_degree = defaultdict(int)
+
+    # Initialize graph with all variables
+    for var in variable_contents:
+        in_degree[var] = 0  # Ensure all variables have an entry
+
+    for var, dependencies in variable_dependencies.items():
+        for dep in dependencies:
+            adjacency_list[dep].append(var)
+            in_degree[var] += 1
+
+    # Collect all nodes with zero in-degree
+    queue = deque([var for var, degree in in_degree.items() if degree == 0])
+    sorted_vars = []
+
+    # Perform topological sort
+    while queue:
+        current = queue.popleft()
+        sorted_vars.append(current)
+
+        # Reduce the in-degree of each neighbor
+        for neighbor in adjacency_list[current]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # Check for cycles (unsorted items)
+    if len(sorted_vars) != len(variable_contents):
+        raise ValueError("Cycle detected in dependencies, sorting not possible.")
+
+    # Return the sorted variable contents
+    return {var: variable_contents[var] for var in sorted_vars}
 
 def parse_props(content: str, indent: int) -> dict:
     props = {}
@@ -79,14 +115,33 @@ def convert(content: str, indent: int = 0) -> str:
         root = widgets[0]
 
     result = f"{i(indent)}Canvas := " + root.codify(indent, widgets)
+
+    variables: list[Widget]
+    if isinstance(root, Slotable):
+        variables = get_variables(root)
+    else:
+        variables = []
+
     variables_str = ""
-
     for variable in variables:
-        var_name = variable.DisplayName[1:].split("_FONT")[0]
-        variables_str += i(indent) + var_name + " := " + variable.codify(indent, widgets) + "\n"
+        var_name = variable.var_name
+        var_content = i(indent) + var_name + " := " + variable.codify(indent, widgets) + "\n"
 
-    variables.clear()
+        variables_str += var_content
+    
     return variables_str + result
+
+def get_variables(widget: Slotable) -> list[Widget]:
+    variables = []
+    
+    for slot in widget.slots:
+        if isinstance(slot.widget, Slotable):
+            variables.extend(get_variables(slot.widget))
+
+        if slot.variable:
+            variables.append(slot.variable)
+
+    return variables
 
 def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
     with open(file, "r", encoding="utf-8") as f:
