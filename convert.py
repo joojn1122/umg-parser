@@ -86,7 +86,9 @@ def parse_widgets(content: str, indent: int) -> list[ParsedWidget]:
 
     return objects
 
-def convert(content: str, indent: int = 0) -> str:
+# Converts a string of widgets to a string of code
+# Returns a tuple of the name of the widget and the code
+def convert(content: str, indent: int = 0) -> tuple[str, str]:
     parsed_widgets: list[ParsedWidget] = parse_widgets(content, 0)
     widgets: list[Widget] = []
 
@@ -112,7 +114,13 @@ def convert(content: str, indent: int = 0) -> str:
             break
     
     if root is None:
+        if len(widgets) == 0:
+            raise ValueError("Invalid widget blueprint")
+
         root = widgets[0]
+
+    export_path = root.props.get("ExportPath", "")
+    name = export_path.split("/")[-1].split(".")[0].replace("WBP_", "")
 
     result = f"{i(indent)}Canvas := " + root.codify(indent, widgets)
 
@@ -129,7 +137,7 @@ def convert(content: str, indent: int = 0) -> str:
 
         variables_str += var_content
     
-    return variables_str + result
+    return (name, variables_str + result)
 
 def get_variables(widget: Slotable) -> list[Widget]:
     variables = []
@@ -156,10 +164,11 @@ def replace_file(file: str, content: str, from_key: str, to_key: str) -> None:
         elif to_key in line:
             end_line = i
 
+    # Start line shouldn't ever be -1, because we check for it in the main function
     if start_line == -1 or end_line == -1:
-        print("Key not found")
+        print("End key not found")
         return
-
+    
     pre = "\n".join(lines[:start_line])
     post = "\n".join(lines[end_line:])
 

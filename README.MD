@@ -83,21 +83,17 @@ $external_ClickInRange.Widget
 ### 5. Automatic Script Replacer
 Automate updates to Verse files by configuring a replacer script:
 
-1. Add an entry to `uis/map.json`:
-   ```json
-   {
-       "example_entry": {
-           "path": "path/to/file.verse",
-           "start_key": "# START_KEY",
-           "end_key": "# END_KEY"
-       }
-   }
-   ```
-2. Create a `.sh` file matching the entry name and include the root canvas content.
+1. Setup config `config.yml`:
+2. Change root path
+
+The script will automatically load export path from the Widget Blueprint, and searches for the path with the root path. If the path is found, it will replace the content between the specified keys with the generated code. If not it will copy to the clipboard.
+
+If you want a different path, you can use override_screens, with name and path.
+
 3. Run the script:
-   ```bash
-   python main.py example_entry
-   ```
+```bash
+python main.py <optional: CustomName instead of WidgetName>
+```
 The script replaces content between the specified keys with generated code.
 
 ---

@@ -1,5 +1,2 @@
 __pycache__/
-result.verse
-ui.sh
-uis/*.sh
-uis/map.json
+config.yml
