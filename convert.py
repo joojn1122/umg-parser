@@ -87,8 +87,8 @@ def parse_widgets(content: str, indent: int) -> list[ParsedWidget]:
     return objects
 
 # Converts a string of widgets to a string of code
-# Returns a tuple of the name of the widget and the code
-def convert(content: str, indent: int = 0) -> tuple[str, str]:
+# Returns a tuple of the name of the widget and the code and the widgets
+def convert(content: str, indent: int = 0) -> tuple[str, str, list[Widget]]:
     parsed_widgets: list[ParsedWidget] = parse_widgets(content, 0)
     widgets: list[Widget] = []
 
@@ -137,7 +137,7 @@ def convert(content: str, indent: int = 0) -> tuple[str, str]:
 
         variables_str += var_content
     
-    return (name, variables_str + result)
+    return (name, variables_str + result, widgets)
 
 def get_variables(widget: Slotable) -> list[Widget]:
     variables = []

@@ -1,10 +1,10 @@
 from slots import Widget, ParsedWidget
 import re
-from constants import format_color, parse_text, parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2, fn
+from constants import format_color, parse_text, Message, parse_vector2, INDENT, color2hex, parse_color, rgb2hex, i, format_vector2, fn
 from math import ceil
 
 class Button(Widget):
-    text: str
+    text: Message
     verse_name: str
 
     def __init__(self, object: ParsedWidget, verse_name: str):
@@ -20,10 +20,10 @@ class Button(Widget):
         return self.__str__()
     
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
-        if not self.text:
-            return self.verse_name + "{}\n"
+        if self.text.not_empty():
+            return f"{self.verse_name}:\n{i(indent + 1)}DefaultText := {self.text}\n"
         
-        return f"{self.verse_name}:\n{i(indent + 1)}DefaultText := \"{self.text}\".Msg()\n"
+        return self.verse_name + "{}\n"
 
 class QuietButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C"
@@ -115,7 +115,7 @@ class Image(Widget):
 class TextBlock(Widget):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C"
 
-    text: str
+    text: Message
     color: str | None
     opacity: float
     font_size: int
@@ -162,32 +162,19 @@ class TextBlock(Widget):
     def __str__(self) -> str:
         return f"TextBlock(Text={self.text})"
     
-    def format_text(self) -> str:
-        if "{player}" in self.text:
-            pre, post = self.text.split("{player}", 1)
-
-            if not pre:
-                return f'Data.Player.Msg() + "{post}"'
-            elif not post:
-                return f'"{pre}" + Data.Player.Msg()'
-            else:
-                return f'"{pre}" + Data.Player.Msg() + "{post}"'
-
-        return f'\"{self.text}\".Msg()'
-    
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         if("FONT_" in self.Name):
             font_name = re.sub("[0-9_]", "", self.Name.split("FONT_", 1)[1])
-            return f"{font_name}.Draw(\"{self.text}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
+            return f"{font_name}.Draw(\"{self.text.message}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
         
         # Use CreateText function for ordinary text blocks
-        if self.text and self.opacity == 1.0 and not self.justification and self.shadowColor and sum(self.shadowColor[:3]) == 0:
-            return f"CreateText({self.format_text()}, {self.color or 'NamedColors.White'})\n"
+        if self.text.not_empty() and self.opacity == 1.0 and not self.justification and self.shadowColor and sum(self.shadowColor[:3]) == 0:
+            return f"CreateText({self.text}, {self.color or 'NamedColors.White'})\n"
 
         result = "text_block:\n"
 
         if self.text:
-            result += f"{i(indent+1)}DefaultText := {self.format_text()}\n"
+            result += f"{i(indent+1)}DefaultText := {self.text}\n"
 
         if self.color:
             result += f"{i(indent+1)}DefaultTextColor := {self.color}\n"

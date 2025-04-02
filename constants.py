@@ -144,8 +144,52 @@ def format_float(f: float) -> str:
     
     return s
 
-def parse_text(text: str) -> str:
+class Message:
+    ARG_REGEX = r"\{(.*?)\}"
+
+    def __init__(self, message: str, translation_key: str | None = None):
+        self.message = message
+        self.translation_key = translation_key
+        self.include_in_translation_file = False
+        self.params = []
+        
+        for match in re.finditer(self.ARG_REGEX, message):
+            self.params.append(match.group(1))
+
+    def not_empty(self) -> bool:
+        return self.message != ""
+    
+    def __str__(self) -> str:
+        if self.message == "":
+            return "EmptyMessage"
+
+        if self.translation_key:
+            # This is to avoid including messages that are not rendered in the game
+            # Example when using __ignore on widget, __str__ will be called only on renderer widgets
+            self.include_in_translation_file = True
+
+            suffix = f"({', '.join(self.params)})" if self.params else ""
+            return f"Messages.{self.translation_key}{suffix}"
+        
+        return f'"{self.message}".Msg()'
+
+# Converts a text object into a verse message object
+# Example: INVTEXT("Hello World") -> "\"Hello World\".Msg()"
+# Example: NSLOCTEXT("[779F1A7F97F709C997CB6AC513875F32]", "Join", "JOIN") -> "Messages.Join"
+def parse_text(text: str) -> Message:
     matched = re.findall(r"\"(.*?)\"", text)
 
-    # Gets last string from all string results
-    return matched[-1].replace("\\r\\n", "\\n") # Fix Windows line endings
+    if not matched:
+        return Message("")
+    
+    if len(matched) == 1:
+        content = matched[0].replace("\\r\\n", "\\n") # Fix Windows line endings
+        return Message(content)
+    
+    if len(matched) != 3:
+        print(f"Warning: Invalid text format {text}")
+    
+    key = matched[1]
+    content = matched[2].replace("\\r\\n", "\\n") # Fix Windows line endings
+    
+    return Message(content, key)
