@@ -120,7 +120,7 @@ Currently, the following widgets are supported:
 - **StackBox & StackBoxSlot**
 - **Overlay & OverlaySlot**
 - **TextBlock**
-- **Image & ColorBlock**
+- **ImageBlock & MaterialBlock & ColorBlock**
 - **Buttons**
 - **Slider**
 

@@ -49,7 +49,8 @@ class Image(Widget):
     size: tuple[float, float]
     path: str | None
     tintColor: str | None
-
+    is_material: bool = False
+    
     def __init__(self, object: ParsedWidget):
         super().__init__(object)
 
@@ -57,18 +58,25 @@ class Image(Widget):
 
         imageSize = re.search(r"ImageSize=\((.*?)\)", brush)
         resourceObject = re.search(r"ResourceObject=\"(.*?)\"", brush)
-        tintColor = parse_color(brush)
+        
+
+        tint = re.search(r"TintColor=\(([^()]*|(\([^()]*\)))*\)", brush)
+        tintColor = parse_color(tint.group(2)) if tint else None
 
         self.size = (32.0, 32.0)
         self.path = None
         self.tintColor = None
         self.opacity = 1.0
+        self.is_material = False
 
         if imageSize:
             self.size = parse_vector2(imageSize.group(1))
 
         if resourceObject:
-            path = resourceObject.group(1).split("'")[1] # get the path only
+            # /Script/Engine.Texture2D'/path/name.name'
+            asset_type, path, *_ = resourceObject.group(1).split("'")
+            self.is_material = asset_type != "/Script/Engine.Texture2D"
+            
             # remove project name and file extension and replace / with .
             self.path = path.split("/", 2)[2].split(".")[0].replace("/", ".")
 
@@ -77,11 +85,28 @@ class Image(Widget):
             if self.path == None:
                 self.opacity = tintColor[3]
                 self.tintColor = rgb2hex(*(tintColor[:3]))
-                
+            
             else:
                 self.tintColor = color2hex(*tintColor)
             
-            self.tintColor = f"MakeColorFromHex(\"{self.tintColor}\")"
+            # Try to use NamedColors if possible
+            if self.path == None or tintColor[3] == 1:
+                match(tintColor[:3]):
+                    case [0, 0, 0]:
+                        self.tintColor = "NamedColors.Black"
+                    case (255, 255, 255):
+                        self.tintColor = "NamedColors.White"
+                    case (255, 0, 0):
+                        self.tintColor = "NamedColors.Red"
+                    case (0, 255, 0):
+                        self.tintColor = "NamedColors.Green"
+                    case (0, 0, 255):
+                        self.tintColor = "NamedColors.Blue"
+                    case _:
+                        pass
+            
+            if not self.tintColor.startswith("NamedColors."):
+                self.tintColor = f"MakeColorFromHex(\"{self.tintColor}\")"
         
     def __str__(self) -> str:
         return f"Image(Size={self.size}, Path={self.path})"
@@ -103,7 +128,7 @@ class Image(Widget):
 
             return result
         
-        result = "texture_block:\n"
+        result = f"{'material' if(self.is_material) else 'texture'}_block:\n"
         result += f"{i(indent + 1)}DefaultImage := {self.path}\n"
         result += f"{i(indent + 1)}DefaultDesiredSize := {format_vector2(self.size)}\n"
 

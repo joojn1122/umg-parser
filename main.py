@@ -9,18 +9,20 @@ START_KEYWORD = "# START UI #"
 END_KEYWORD = "# END UI #"
 
 if __name__ == "__main__":
+    with open("config.yml", "r", encoding="utf-8") as yaml:
+        config = load(yaml, Loader=FullLoader)
+
+    Message.Translate = config.get('use_lang', True)
+
     ui = pyperclip.paste()
     name, result, _ = convert(ui, 0)
 
     if len(sys.argv) > 1:
         name = sys.argv[1]
 
-    with open("config.yml", "r", encoding="utf-8") as yaml:
-        config = load(yaml, Loader=FullLoader) 
-
     root_path = config['root_path']
     override_screens = config['override_screens']
-
+    
     file_path = f"{root_path}/{name}.verse"
     
     for screen in override_screens:
@@ -52,7 +54,7 @@ if __name__ == "__main__":
     # Create messages
     lang_path = config['lang_path']
 
-    if lang_path:
+    if lang_path and Message.Translate:
         with open(lang_path, "r", encoding="utf-8") as f:
             content = f.read()
 

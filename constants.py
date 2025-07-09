@@ -146,6 +146,7 @@ def format_float(f: float) -> str:
 
 class Message:
     ARG_REGEX = r"\{(.*?)\}"
+    Translate: bool = True  # Whether to translate messages or not
 
     def __init__(self, message: str, translation_key: str | None = None):
         self.message = message
@@ -163,7 +164,9 @@ class Message:
         if self.message == "":
             return "EmptyMessage"
 
-        if self.translation_key:
+        print(Message.Translate)
+
+        if Message.Translate and self.translation_key:
             # This is to avoid including messages that are not rendered in the game
             # Example when using __ignore on widget, __str__ will be called only on renderer widgets
             self.include_in_translation_file = True

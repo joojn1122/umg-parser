@@ -1,7 +1,6 @@
 root_path: C:/Users/joojn/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Screens
 
-# Remove lang_path if you don't want to use the localization system
-# But messages will be converted either way
+use_lang: false
 lang_path: C:/Users/joojn/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Lang.verse
 
 override_screens:
@@ -14,5 +13,5 @@ override_screens:
   - name: ShopUpgrades
     path: ./Shop/ShopUpgrades.verse
 
-  - name: GemShop
+  - name: GemShopEggs
     path: ./Shop/GemShop.verse

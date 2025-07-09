@@ -148,6 +148,8 @@ class CanvasSlot(Slot):
 
 class StackBoxSlot(Slot):
     ClassName: str = "/Script/UMG.StackBoxSlot"
+    DefaultVAlign: str = "VAlign_Fill"
+    DefaultHAlign: str = "HAlign_Fill"
 
     distribution: float
     padding: Padding
@@ -160,8 +162,8 @@ class StackBoxSlot(Slot):
 
         props = object['props']
 
-        self.vertical_alignment = props.get("VerticalAlignment", "VAlign_Fill").replace("VAlign_", "")
-        self.horizontal_alignment = props.get("HorizontalAlignment", "HAlign_Fill").replace("HAlign_", "")
+        self.vertical_alignment = props.get("VerticalAlignment", self.DefaultVAlign).replace("VAlign_", "")
+        self.horizontal_alignment = props.get("HorizontalAlignment", self.DefaultHAlign).replace("HAlign_", "")
 
         self.padding = Padding.parse(props.get("Padding", "Padding(Left=0.0)"))
         self.distribution = -1
@@ -195,9 +197,12 @@ class StackBoxSlot(Slot):
         return result + f"{i(indent + 1)}Widget := " + self.format_widget(indent + 1, parsed_objects)
     
 # OverlaySlot is exactly the same as StackBoxSlot, but with a different class name
+# And different default values for HorizontalAlignment and VerticalAlignment
 class OverlaySlot(StackBoxSlot):
     ClassName: str = "/Script/UMG.OverlaySlot"
-    
+    DefaultVAlign: str = "VAlign_Top"
+    DefaultHAlign: str = "HAlign_Left"
+
     def __str__(self) -> str:
         return f"OverlaySlot(Name={self.Name}, Padding={self.padding}, HorizontalAlignment={self.horizontal_alignment}, VerticalAlignment={self.vertical_alignment}, Content={self.Content})\n"
 
@@ -292,7 +297,7 @@ f'''stack_box:
 '''
 
         return result + self.format_slots(indent + 2, parsed_objects)
-    
+
 class Overlay(Slotable):
     ClassName: str = "/Script/UMG.Overlay"
 
