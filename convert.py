@@ -86,9 +86,17 @@ def parse_widgets(content: str, indent: int) -> list[ParsedWidget]:
 
     return objects
 
-# Converts a string of widgets to a string of code
-# Returns a tuple of the name of the widget and the code and the widgets
-def convert(content: str, indent: int = 0) -> tuple[str, str, list[Widget]]:
+def convert(content: str, indent: int = 0):
+    '''
+    Converts UMG Widget blueprint text into Verse code.
+
+    Args:
+        content (str): The UMG Widget blueprint text.
+        indent (int): The indentation level for the generated Verse code.
+
+    Returns:
+        tuple: A tuple containing the export path (str), generated Verse code (str), and a list of Widget objects.
+    '''
     parsed_widgets: list[ParsedWidget] = parse_widgets(content, 0)
     widgets: list[Widget] = []
 
@@ -96,9 +104,17 @@ def convert(content: str, indent: int = 0) -> tuple[str, str, list[Widget]]:
         props = widget['props']
         className = props.get('Class', "")
 
+        found = False
+
         for rclass in registered_classes:
             if rclass.ClassName == className:
                 widgets.append(rclass(widget))
+                found = True
+                break
+        
+        # Add other widgets as generic widgets
+        if not found:
+            widgets.append(Widget(widget))
 
     root: Widget | None = None
     slot_root: WidgetSlotPair | None = None
@@ -120,9 +136,8 @@ def convert(content: str, indent: int = 0) -> tuple[str, str, list[Widget]]:
         root = widgets[0]
 
     export_path = root.props.get("ExportPath", "")
-    name = export_path.split("/")[-1].split(".")[0].replace("WBP_", "")
-
-    result = f"{i(indent)}Canvas := " + root.codify(indent, widgets)
+    
+    result = f"{i(indent)}{root.SimpleName} := " + root.codify(indent, widgets)
 
     variables: list[Widget]
     if isinstance(root, Slotable):
@@ -137,7 +152,7 @@ def convert(content: str, indent: int = 0) -> tuple[str, str, list[Widget]]:
 
         variables_str += var_content
     
-    return (name, variables_str + result, widgets)
+    return export_path, variables_str + result, widgets
 
 def get_variables(widget: Slotable) -> list[Widget]:
     variables = []

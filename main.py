@@ -9,16 +9,26 @@ START_KEYWORD = "# START UI #"
 END_KEYWORD = "# END UI #"
 
 if __name__ == "__main__":
-    with open("config.yml", "r", encoding="utf-8") as yaml:
-        config = load(yaml, Loader=FullLoader)
-
-    Message.Translate = config.get('use_lang', True)
-
     ui = pyperclip.paste()
-    name, result, _ = convert(ui, 0)
+    export_path, result, _ = convert(ui, 0)
+
+    name = export_path.split("/")[-1].split(".")[0].replace("WBP_", "")
+    project_name = export_path.split("'/")[1].split("/")[0]
+
+    normalized_project_name = "".join(c for c in project_name if c.isalnum() or c == '_').rstrip().lower()
+    print(normalized_project_name)
 
     if len(sys.argv) > 1:
         name = sys.argv[1]
+
+    config_path = f"config_{normalized_project_name}.yml"
+    if not os.path.exists(config_path):
+        config_path = "config.yml"
+
+    with open(config_path, "r", encoding="utf-8") as yaml:
+        config = load(yaml, Loader=FullLoader)
+
+    Message.Translate = config.get('use_lang', True)
 
     root_path = config['root_path']
     override_screens = config['override_screens']
@@ -48,7 +58,7 @@ if __name__ == "__main__":
         print("Start key not found in file")
         exit()
     
-    name, result, widgets = convert(ui, indent)
+    _, result, widgets = convert(ui, indent)
     replace_file(file_path, result, START_KEYWORD, END_KEYWORD)
     
     # Create messages

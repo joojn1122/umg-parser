@@ -27,24 +27,28 @@ class Button(Widget):
 
 class QuietButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C"
+    SimpleName: str = "QuietButton"
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object, "button_quiet")
 
 class RegularButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Regular.UEFN_Button_Regular_C"
+    SimpleName: str = "RegularButton"
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object, "button_regular")
 
 class LoudButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C"
+    SimpleName: str = "LoudButton"
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object, "button_loud")
 
 class Image(Widget):
     ClassName: str = "/Script/UMG.Image"
+    SimpleName: str = "ImageBlock"
 
     size: tuple[float, float]
     path: str | None
@@ -79,6 +83,8 @@ class Image(Widget):
             
             # remove project name and file extension and replace / with .
             self.path = path.split("/", 2)[2].split(".")[0].replace("/", ".")
+            if self.is_material and self.path:
+                self.path += "{}"
 
         if tintColor:
             # Convert to hex
@@ -98,8 +104,6 @@ class Image(Widget):
                         self.tintColor = "NamedColors.White"
                     case (255, 0, 0):
                         self.tintColor = "NamedColors.Red"
-                    case (0, 255, 0):
-                        self.tintColor = "NamedColors.Green"
                     case (0, 0, 255):
                         self.tintColor = "NamedColors.Blue"
                     case _:
@@ -139,11 +143,12 @@ class Image(Widget):
         
 class TextBlock(Widget):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_TextBlock.UEFN_TextBlock_C"
+    SimpleName: str = "TextBlock"
 
     text: Message
     color: str | None
     opacity: float
-    font_size: int
+    font_size: float
     justification: str | None # Right or center
 
     # shadow
@@ -161,13 +166,14 @@ class TextBlock(Widget):
         color = parse_color(props.get("ColorAndOpacity", ""))
 
         font = props.get("Font", "")
+        
         if not font:
             self.font_size = 32
         else:
-            font_size = re.search(r"[,(]Size=(\d+)", font)
+            font_size = re.search(r"[,(]Size=([\d\.]+)", font)
             
             if font_size:
-                self.font_size = ceil(int(font_size.group(1)) * 1.33)
+                self.font_size = float(font_size.group(1)) * 1.3333333333333333
             else:
                 self.font_size = 32
 
@@ -192,10 +198,6 @@ class TextBlock(Widget):
             font_name = re.sub("[0-9_]", "", self.Name.split("FONT_", 1)[1])
             return f"{font_name}.Draw(\"{self.text.message}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
         
-        # Use CreateText function for ordinary text blocks
-        if self.text.not_empty() and self.opacity == 1.0 and not self.justification and self.shadowColor and sum(self.shadowColor[:3]) == 0:
-            return f"CreateText({self.text}, {self.color or 'NamedColors.White'})\n"
-
         result = "text_block:\n"
 
         if self.text:
@@ -203,6 +205,9 @@ class TextBlock(Widget):
 
         if self.color:
             result += f"{i(indent+1)}DefaultTextColor := {self.color}\n"
+
+        if self.font_size != 32.0:
+            result += f"{i(indent+1)}DefaultTextSize := {fn(self.font_size)}\n"
 
         if self.opacity != 1.0:
             result += f"{i(indent+1)}DefaultOpacity := {self.opacity}\n"
@@ -221,6 +226,7 @@ class TextBlock(Widget):
 
 class Slider(Widget):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Slider.UEFN_Slider_C"
+    SimpleName: str = "Slider"
 
     min: float    # Pivot[0]
     max: float    # Pivot[1]
@@ -255,6 +261,7 @@ class Slider(Widget):
 
 class WidgetSlotPair(Widget):
     ClassName: str = "/Script/UMGEditor.WidgetSlotPair"
+    SimpleName: str = "WidgetSlotPair"
     WidgetName: str
 
     def __init__(self, object: ParsedWidget) -> None:

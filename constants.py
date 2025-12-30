@@ -136,14 +136,6 @@ def parse_color(color: str) -> tuple[float, float, float, float] | None:
     
     return None
 
-def format_float(f: float) -> str:
-    s = str(f)
-
-    if "." not in s:
-        return s + ".0"
-    
-    return s
-
 class Message:
     ARG_REGEX = r"\{(.*?)\}"
     Translate: bool = True  # Whether to translate messages or not
@@ -163,8 +155,6 @@ class Message:
     def __str__(self) -> str:
         if self.message == "":
             return "EmptyMessage"
-
-        print(Message.Translate)
 
         if Message.Translate and self.translation_key:
             # This is to avoid including messages that are not rendered in the game

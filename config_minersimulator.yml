@@ -10,8 +10,17 @@ override_screens:
   - name: ShopHitEffects
     path: ./Shop/ShopHitEffects.verse
 
-  - name: ShopUpgrades
-    path: ./Shop/ShopUpgrades.verse
-
   - name: GemShopEggs
     path: ./Shop/GemShop.verse
+
+  - name: PetMenu
+    path: ./PetMenu.verse
+
+  - name: PetSelectMenu
+    path: ./PetSelectMenu.verse
+
+  - name: ShopUpgrades
+    path: ./StrengthUpgrades.verse
+
+  - name: PickPet
+    path: ./PickPet.verse

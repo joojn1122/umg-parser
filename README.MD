@@ -80,7 +80,13 @@ $external_ClickInRange.Widget
 
 ---
 
-### 5. Automatic Script Replacer
+### 5. Auto Generated Messages
+- You can enable this feature and the converter then generates messages for all texts if the text has enabled localization.
+- You also need to name the localization keys in UEFN properly for this to work.
+- If disabled, the converter will just use the raw text with `.Msg()` suffix.
+
+
+### 6. Automatic Script Replacer
 Automate updates to Verse files by configuring a replacer script:
 
 1. Setup config `config.yml`:
@@ -98,7 +104,7 @@ The script replaces content between the specified keys with generated code.
 
 ---
 
-### 6. Slider
+### 7. Slider
 Because of the way sliders are implemented in UMG, you can't specify any properties for the slider itself.
 The workaround is to use the `PivotPoint` property, meaning:
 ```js

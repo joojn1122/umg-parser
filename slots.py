@@ -1,6 +1,6 @@
 import re
 from typing import TypedDict
-from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_float, format_vector2, fn
+from constants import Padding, parse_offsets, parse_anchors, parse_vector2, INDENT, i, format_vector2, fn
 from rich import print
 import traceback
 
@@ -14,6 +14,7 @@ class Widget:
     Name: str
     DisplayName: str
     ClassName: str
+    SimpleName: str
     props: dict
 
     @property
@@ -81,6 +82,7 @@ class Slot(Widget):
         
 class CanvasSlot(Slot):
     ClassName: str = "/Script/UMG.CanvasPanelSlot"
+    SimpleName: str = "CanvasSlot"
 
     Anchors: tuple[float, float, float, float] | None
     Offsets: dict[str, float] | None
@@ -148,6 +150,7 @@ class CanvasSlot(Slot):
 
 class StackBoxSlot(Slot):
     ClassName: str = "/Script/UMG.StackBoxSlot"
+    SimpleName: str = "StackBoxSlot"
     DefaultVAlign: str = "VAlign_Fill"
     DefaultHAlign: str = "HAlign_Fill"
 
@@ -192,7 +195,7 @@ class StackBoxSlot(Slot):
         result += f"{i(indent + 1)}VerticalAlignment := vertical_alignment.{self.vertical_alignment}\n"
 
         if self.distribution != -1:
-            result += f"{i(indent + 1)}Distribution := {format_float(self.distribution)}.Maybe()\n"
+            result += f"{i(indent + 1)}Distribution := {fn(self.distribution)}.Maybe()\n"
 
         return result + f"{i(indent + 1)}Widget := " + self.format_widget(indent + 1, parsed_objects)
     
@@ -200,6 +203,7 @@ class StackBoxSlot(Slot):
 # And different default values for HorizontalAlignment and VerticalAlignment
 class OverlaySlot(StackBoxSlot):
     ClassName: str = "/Script/UMG.OverlaySlot"
+    SimpleName: str = "OverlaySlot"
     DefaultVAlign: str = "VAlign_Top"
     DefaultHAlign: str = "HAlign_Left"
 
@@ -273,6 +277,7 @@ class Slotable(Widget):
 
 class Canvas(Slotable):
     ClassName: str = "/Script/UMG.CanvasPanel"
+    SimpleName: str = "Canvas"
 
     def __init__(self, object: ParsedWidget):
         super().__init__(object, CanvasSlot)
@@ -282,6 +287,7 @@ class Canvas(Slotable):
 
 class StackBox(Slotable):
     ClassName: str = "/Script/UMG.StackBox"
+    SimpleName: str = "StackBox"
 
     vertical: bool
 
@@ -300,7 +306,8 @@ f'''stack_box:
 
 class Overlay(Slotable):
     ClassName: str = "/Script/UMG.Overlay"
-
+    SimpleName: str = "Overlay"
+    
     def __init__(self, object: ParsedWidget):
         super().__init__(object, OverlaySlot)
 
