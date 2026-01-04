@@ -16,7 +16,7 @@ if __name__ == "__main__":
     project_name = export_path.split("'/")[1].split("/")[0]
 
     normalized_project_name = "".join(c for c in project_name if c.isalnum() or c == '_').rstrip().lower()
-    print(normalized_project_name)
+    print("Project name:", normalized_project_name)
 
     if len(sys.argv) > 1:
         name = sys.argv[1]
@@ -39,9 +39,11 @@ if __name__ == "__main__":
         if screen['name'] == name:
             file_path = f"{root_path}/{screen['path']}"
             break
+
+    file_path = os.path.expandvars(file_path)
     
     if not os.path.exists(file_path):
-        print("UI not found, copying to clipboard!")
+        print("UI verse file not found, copying to clipboard!", file_path)
         pyperclip.copy(result)
         exit()
 

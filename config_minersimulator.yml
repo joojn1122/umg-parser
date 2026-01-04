@@ -1,7 +1,7 @@
-root_path: C:/Users/joojn/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Screens
+root_path: "%USERPROFILE%/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Screens"
 
 use_lang: false
-lang_path: C:/Users/joojn/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Lang.verse
+lang_path: "%USERPROFILE%/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Lang.verse"
 
 override_screens:
   - name: ShopWeapons
@@ -24,3 +24,6 @@ override_screens:
 
   - name: PickPet
     path: ./PickPet.verse
+
+  - name: ShopFight
+    path: ./Shop/ShopFighter.verse
