@@ -84,15 +84,17 @@ class UMGParser:
     All configuration is stored in this class instance, avoiding global state.
     """
     
-    def __init__(self, config: Optional[UMGParserConfig] = None):
+    def __init__(self, config: Optional[UMGParserConfig] = None, is_local: bool = True):
         """
         Initialize the UMG Parser with optional configuration.
         
         Args:
             config: Optional UMGParserConfig instance. If None, uses defaults.
+            is_local: Whether the parser is running in a local environment.
         """
         self.config = config or UMGParserConfig()
         self._collected_messages: list = []
+        self.is_local = is_local
     
     @property
     def use_translated(self) -> bool:
@@ -129,16 +131,14 @@ class UMGParser:
 
             for rclass in registered_classes:
                 if rclass.ClassName == className:
-                    w = rclass(widget)
-                    w._parser = self  # Inject parser reference
+                    w = rclass(self, widget)
                     widgets.append(w)
                     found = True
                     break
             
             # Add other widgets as generic widgets
             if not found:
-                w = Widget(widget)
-                w._parser = self
+                w = Widget(self, widget)
                 widgets.append(w)
 
         root: Widget | None = None

@@ -1,5 +1,4 @@
 from collections import defaultdict, deque
-import re
 from slots import ParsedWidget
 
 def sort_variables(variable_contents, variable_dependencies):
@@ -39,44 +38,149 @@ def sort_variables(variable_contents, variable_dependencies):
     return {var: variable_contents[var] for var in sorted_vars}
 
 def parse_props(content: str, indent: int) -> dict:
+    """Parse properties at a specific indentation level, handling quoted values correctly."""
     props = {}
+    indent_str = ' ' * indent
 
     for line in content.splitlines():
-        if not re.match(fr"{indent * ' '}\w", line):
+        # Skip lines that don't start at the correct indentation
+        if not line.startswith(indent_str) or len(line) <= indent:
+            continue
+
+        # Skip if the character after indent is whitespace (deeper nesting)
+        if line[indent] == ' ':
             continue
 
         part = line[indent:]
-        if part.startswith("Begin Object"):
+
+        # Skip Begin/End Object markers
+        if part.startswith("Begin Object") or part.startswith("End Object"):
             continue
 
-        if "=" in part:
-            key, value = part.split("=", 1)
-            props[key.strip()] = value.strip()
+        # Parse key=value, handling the first = as delimiter
+        eq_pos = part.find('=')
+        if eq_pos != -1:
+            key = part[:eq_pos].strip()
+            value = part[eq_pos + 1:].strip()
+            props[key] = value
 
     return props
 
+def _parse_header_props(header_line: str) -> dict:
+    """Parse props from 'Begin Object Name="Foo" Class="Bar"' line, handling quoted values."""
+    props = {}
+    # Extract the part after "Begin Object "
+    start = header_line.find("Begin Object ")
+    if start == -1:
+        return props
+
+    rest = header_line[start + len("Begin Object "):]
+
+    # Parse key=value pairs, handling quoted values with spaces
+    i = 0
+    while i < len(rest):
+        # Skip whitespace
+        while i < len(rest) and rest[i] == ' ':
+            i += 1
+        if i >= len(rest):
+            break
+
+        # Find key
+        eq_pos = rest.find('=', i)
+        if eq_pos == -1:
+            break
+
+        key = rest[i:eq_pos].strip()
+        i = eq_pos + 1
+
+        # Parse value (may be quoted)
+        if i < len(rest) and rest[i] == '"':
+            # Find closing quote
+            i += 1
+            end_quote = rest.find('"', i)
+            if end_quote == -1:
+                value = rest[i:]
+                i = len(rest)
+            else:
+                value = rest[i:end_quote]
+                i = end_quote + 1
+            props[key] = f'"{value}"'
+        else:
+            # Unquoted value - find next space
+            space_pos = rest.find(' ', i)
+            if space_pos == -1:
+                value = rest[i:]
+                i = len(rest)
+            else:
+                value = rest[i:space_pos]
+                i = space_pos
+            props[key] = value
+
+    return props
+
+def _find_matching_end(lines: list[str], start_idx: int, indent: int) -> int:
+    """Find the index of the matching End Object for a Begin Object at start_idx."""
+    indent_str = ' ' * indent
+    depth = 0
+
+    for i in range(start_idx, len(lines)):
+        line = lines[i]
+        if line.startswith(indent_str) and len(line) > indent and line[indent] != ' ':
+            stripped = line[indent:]
+            if stripped.startswith("Begin Object"):
+                depth += 1
+            elif stripped.startswith("End Object"):
+                depth -= 1
+                if depth == 0:
+                    return i
+
+    return -1
+
 def parse_widgets(content: str, indent: int) -> list[ParsedWidget]:
-    regex = fr"{indent * ' '}Begin Object.*?\n{indent * ' '}End Object"
+    """Parse widgets at a specific indentation level, correctly handling nested objects."""
+    objects: list[ParsedWidget] = []
+    lines = content.splitlines()
+    indent_str = ' ' * indent
 
-    objects = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
 
-    for match in re.finditer(regex, content, re.DOTALL | re.MULTILINE):
-        content = match.group(0)
-        first_line = content.splitlines()[0]
+        # Check if this line starts a Begin Object at our indent level
+        if (line.startswith(indent_str) and
+            len(line) > indent and
+            line[indent] != ' ' and
+            line[indent:].startswith("Begin Object")):
 
-        props_raw = first_line.split("Begin Object ")[1].split(" ")
-        
-        props = { prop.strip().split("=")[0]: prop.strip().split("=")[1] for prop in props_raw }
+            # Find matching End Object
+            end_idx = _find_matching_end(lines, i, indent)
+            if end_idx == -1:
+                i += 1
+                continue
 
-        children: list[ParsedWidget] = parse_widgets(content, indent + 3)
-        props.update(parse_props(content, indent + 3))
+            # Extract the block content
+            block_lines = lines[i:end_idx + 1]
+            block_content = '\n'.join(block_lines)
 
-        obj: ParsedWidget = {
-            "props": props,
-            "children": children
-        }
+            # Parse header props from first line
+            props = _parse_header_props(line)
 
-        objects.append(obj)
+            # Parse children (nested objects at indent + 3)
+            children = parse_widgets(block_content, indent + 3)
+
+            # Parse properties at indent + 3
+            props.update(parse_props(block_content, indent + 3))
+
+            obj: ParsedWidget = {
+                "props": props,
+                "children": children
+            }
+            objects.append(obj)
+
+            # Skip past this entire block
+            i = end_idx + 1
+        else:
+            i += 1
 
     return objects
 

@@ -26,9 +26,10 @@ class Widget:
     Name: str
     DisplayName: str
     ClassName: str
-    SimpleName: str
+    SimpleName: str = "Widget"
     props: dict
-    _parser: 'UMGParser | None'  # Reference to parser for config access
+    
+    parser: 'UMGParser'
 
     @property
     def var_name(self) -> str:
@@ -37,28 +38,21 @@ class Widget:
     def is_var(self) -> bool:
         return self.DisplayName.startswith("$")
     
-    @property
-    def use_translated(self) -> bool:
-        """Get translation setting from parser, or False if no parser."""
-        if self._parser is not None:
-            return self._parser.use_translated
-        return False
-
     def __init_subclass__(cls) -> None:
         if(getattr(cls, "ClassName", None) is None):
             return
         
         registered_classes.append(cls)
     
-    def __init__(self, object: ParsedWidget) -> None:
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget) -> None:
+        self.parser = parser
         self.Name = object['props'].get("Name", "").replace("\"", "")
         self.DisplayName = object['props'].get("DisplayLabel", "").replace("\"", "")
 
         if(self.DisplayName == ""):
             self.DisplayName = self.Name
-
+        
         self.props = object['props']
-        self._parser = None  # Will be set by UMGParser
 
     def codify(self, indent: int, parsed_objects: list['Widget']) -> str:
         return ""
@@ -76,9 +70,8 @@ class Slot(Widget):
     variable: Widget | None = None
     widget: Widget | None = None
 
-    def __init__(self, object: ParsedWidget) -> None:
-        super().__init__(object)
-
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget) -> None:
+        super().__init__(parser, object)
         self.Content = object['props'].get("Content", "").split("'")[1].split("'")[0]
 
     def format_widget(self, indent: int, parsed_objects: list[Widget]) -> str:
@@ -86,11 +79,7 @@ class Slot(Widget):
 
         if self.widget is None:
             return f"Script error: Widget {self.Content} not found\n"
-
-        # Propagate parser reference
-        if self._parser is not None and self.widget._parser is None:
-            self.widget._parser = self._parser
-
+        
         if self.widget.DisplayName.startswith("$external_"):
             name = self.widget.DisplayName[10:]
             return name + "\n\n"
@@ -115,8 +104,8 @@ class CanvasSlot(Slot):
     SizeToContent: bool = False
     ZOrder: int = 0
     
-    def __init__(self, object: ParsedWidget) -> None:
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget) -> None:
+        super().__init__(parser, object)
 
         props = object['props']
 
@@ -185,8 +174,8 @@ class StackBoxSlot(Slot):
     vertical_alignment: str
     Content: str
 
-    def __init__(self, object: ParsedWidget) -> None:
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget) -> None:
+        super().__init__(parser, object)
 
         props = object['props']
 
@@ -242,15 +231,15 @@ class OverlaySlot(StackBoxSlot):
 class Slotable(Widget):
     slots: list[Slot]
 
-    def __init__(self, object: ParsedWidget, slot_class: type[Slot]):
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget, slot_class: type[Slot]):
+        super().__init__(parser, object)
 
         self.slots = []
 
         for child in object['children']:
             try:
                 if(slot_class.ClassName in child['props'].get('ExportPath', "") and child["props"].get("Content")):
-                    slot = slot_class(child)
+                    slot = slot_class(parser, child)
 
                     # Ignore slots with __ignore in the content
                     if("__ignore" in slot.Content):
@@ -304,8 +293,8 @@ class Canvas(Slotable):
     ClassName: str = "/Script/UMG.CanvasPanel"
     SimpleName: str = "Canvas"
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, CanvasSlot)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, CanvasSlot)
 
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         return f"canvas:\n" + self.format_slots(indent + 2, parsed_objects)
@@ -316,8 +305,8 @@ class StackBox(Slotable):
 
     vertical: bool
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, StackBoxSlot)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, StackBoxSlot)
 
         self.vertical = object['props'].get("Orientation", "Horizontal").replace("Orient_", "") == "Vertical"
 
@@ -333,8 +322,8 @@ class Overlay(Slotable):
     ClassName: str = "/Script/UMG.Overlay"
     SimpleName: str = "Overlay"
     
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, OverlaySlot)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, OverlaySlot)
 
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         return f"overlay:\n" + self.format_slots(indent + 2, parsed_objects)

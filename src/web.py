@@ -5,7 +5,6 @@ from parser import UMGParser, UMGParserConfig
 from fastapi import FastAPI, HTTPException, Request, Depends, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
 import traceback
 
 from dotenv import load_dotenv
@@ -51,6 +50,12 @@ class UMGRequest(BaseModel):
         default=False,
         description="Whether to use translation keys for messages"
     )
+    indent: int = Field(
+        default=0,
+        ge=0,
+        le=8,
+        description="Number of indents to use in the generated Verse code"
+    )
     
     @field_validator('umg_text')
     @classmethod
@@ -64,7 +69,8 @@ class UMGRequest(BaseModel):
 
 # Response models
 class SuccessResponse(BaseModel):
-    verse_code: str
+    code: str
+    messages: str | None
 
 class ErrorResponse(BaseModel):
     error: str
@@ -95,16 +101,21 @@ async def convert(request: UMGRequest):
     try:
         # Create parser with config
         config = UMGParserConfig(use_translated=request.use_translated)
-        parser = UMGParser(config)
+        parser = UMGParser(config, is_local=False)
         
-        _, verse_code, widgets = parser.convert(request.umg_text, 0)
+        _, verse_code, widgets = parser.convert(
+            request.umg_text, 
+            indent=request.indent
+        )
 
-        added_content = ""
+        messages = None
         if request.use_translated:
-            added_content = parser.generate_messages_module(widgets)
+            messages = parser.generate_messages_module(widgets).strip()
 
-        return SuccessResponse(verse_code=added_content + verse_code)
-
+        return SuccessResponse(
+            code=verse_code,
+            messages=messages
+        )
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

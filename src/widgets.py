@@ -12,13 +12,17 @@ from constants import (
     format_vector2, 
     fn
 )
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from parser import UMGParser
 
 class Button(Widget):
     text: Message
     verse_name: str
 
-    def __init__(self, object: ParsedWidget, verse_name: str):
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget, verse_name: str):
+        super().__init__(parser, object)
 
         self.verse_name = verse_name
         self.text = parse_text(object['props'].get("Text", ""))
@@ -31,7 +35,7 @@ class Button(Widget):
     
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         # Set translation flag on text message based on parser config
-        self.text._use_translated = self.use_translated
+        self.text._use_translated = self.parser.use_translated
         
         if self.text.not_empty():
             return f"{self.verse_name}:\n{i(indent + 1)}DefaultText := {self.text}\n"
@@ -42,22 +46,22 @@ class QuietButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Quiet.UEFN_Button_Quiet_C"
     SimpleName: str = "QuietButton"
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, "button_quiet")
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, "button_quiet")
 
 class RegularButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Regular.UEFN_Button_Regular_C"
     SimpleName: str = "RegularButton"
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, "button_regular")
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, "button_regular")
 
 class LoudButton(Button):
     ClassName: str = "/Game/Valkyrie/UMG/UEFN_Button_Loud.UEFN_Button_Loud_C"
     SimpleName: str = "LoudButton"
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object, "button_loud")
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object, "button_loud")
 
 class Image(Widget):
     ClassName: str = "/Script/UMG.Image"
@@ -68,8 +72,8 @@ class Image(Widget):
     tintColor: str | None
     is_material: bool = False
     
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object)
 
         brush = object['props'].get("Brush", "")
 
@@ -171,8 +175,8 @@ class TextBlock(Widget):
     # outline, currently just supports checking if it exists
     has_outline: bool = False
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object)
         
         props = object['props']
 
@@ -215,14 +219,15 @@ class TextBlock(Widget):
     
     def codify(self, indent: int, parsed_objects: list[Widget]) -> str:
         # Set translation flag on text message based on parser config
-        self.text._use_translated = self.use_translated
+        self.text._use_translated = self.parser.use_translated
         
-        if("FONT_" in self.Name):
+        if "FONT_" in self.Name and self.parser.is_local:
             font_name = re.sub("[0-9_]", "", self.Name.split("FONT_", 1)[1])
             return f"{font_name}.Draw(\"{self.text.message}\", {self.color or 'NamedColors.White'}, {self.font_size})\n"
         
         # If outline, use custom widget
-        if self.has_outline:
+        # Don't allow custom things on web
+        if self.has_outline and self.parser.is_local:
             alpha_color = f", ?Alpha := {fn(self.opacity)}" if self.opacity != 1.0 else ""
             return f"CreateOutlineText(0, {self.text}, {self.color or 'NamedColors.White'}{alpha_color})\n"
 
@@ -261,8 +266,8 @@ class Slider(Widget):
     value: float  # Shear[0]
     step: float   # Shear[1]
 
-    def __init__(self, object: ParsedWidget):
-        super().__init__(object)
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget):
+        super().__init__(parser, object)
 
         # Have to use pivot, because you can't change shit in UMG for some reason
         pivot = object['props'].get("RenderTransformPivot", "(X=0.500000,Y=0.500000)")
@@ -292,7 +297,6 @@ class WidgetSlotPair(Widget):
     SimpleName: str = "WidgetSlotPair"
     WidgetName: str
 
-    def __init__(self, object: ParsedWidget) -> None:
-        super().__init__(object)
-
+    def __init__(self, parser: 'UMGParser', object: ParsedWidget) -> None:
+        super().__init__(parser, object)
         self.WidgetName = object['props'].get("WidgetName", "").replace("\"", "")
