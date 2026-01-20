@@ -43,6 +43,12 @@ Follow these steps to install and set up **UMG Parser**:
 
 ## How to Use
 
+### Quick Start
+1. Open any UMG Widget Blueprint in UEFN.
+2. Select which widgets you want to convert from the hierarchy.
+3. Copy to clipboard (Ctrl + C).
+4. Paste (Ctrl + V) into the input box.
+
 ### 1. Declaring Variables
 Define variables by prefixing widget names with `$`. The parser generates these variables in the Verse code.
 
@@ -76,6 +82,13 @@ To reference an external widget not part of the current UMG file, use `$external
 **Example:**
 ```plaintext
 $external_ClickInRange.Widget
+```
+
+You can also prefix with `external_` to mark the widget as an external reference.
+
+**Example:**
+```plaintext
+external_Player.Widget
 ```
 
 ---

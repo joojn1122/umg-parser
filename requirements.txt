@@ -1,3 +1,7 @@
 rich
 pyperclip
-PYyaml
+fastapi
+PyYAML
+gunicorn
+uvicorn[standard]
+dotenv
