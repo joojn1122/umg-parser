@@ -58,7 +58,9 @@
 ## 🚀 Installation
 
 ```bash
-npm install umg-parser
+git clone https://github.com/joojn1122/umg-parser.git
+cd umg-parser
+npm install
 ```
 
 ---
