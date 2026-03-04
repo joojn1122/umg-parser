@@ -1,0 +1,23 @@
+root_path: $USERPROFILE/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Screens
+
+use_lang: false
+lang_path: $USERPROFILE/Documents/Fortnite Projects/MinerSimulator/Plugins/MinerSimulator/Content/Lang.verse
+
+override_screens:
+  - name: ShopWeapons
+    path: ./Shop/ShopWeapons.verse 
+
+  - name: ShopHitEffects
+    path: ./Shop/ShopHitEffects.verse
+
+  - name: GemShopEggs
+    path: ./Shop/GemShop.verse
+
+  - name: PetMenu
+    path: ./PetMenu.verse
+
+  - name: ShopUpgrades
+    path: ./StrengthUpgrades.verse
+
+  - name: PickPet
+    path: ./PickPet.verse

@@ -1,0 +1,7 @@
+rich
+pyperclip
+fastapi
+PyYAML
+gunicorn
+uvicorn[standard]
+dotenv
