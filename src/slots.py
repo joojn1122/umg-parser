@@ -1,5 +1,5 @@
 import re
-from typing import TypedDict, TYPE_CHECKING
+from typing import Dict, TypedDict, TYPE_CHECKING
 from rich import print
 import traceback
 from constants import (
@@ -27,13 +27,13 @@ class Widget:
     DisplayName: str
     ClassName: str
     SimpleName: str = "Widget"
-    props: dict
+    props: Dict[str, str]
     
     parser: 'UMGParser'
 
     @property
     def var_name(self) -> str:
-        return self.DisplayName[1:].split("_FONT")[0]
+        return self.DisplayName[1:] # .split("_FONT")[0]
 
     def is_var(self) -> bool:
         return self.DisplayName.startswith("$")
@@ -55,8 +55,22 @@ class Widget:
         self.props = object['props']
 
     def codify(self, indent: int, parsed_objects: list['Widget']) -> str:
-        return ""
-    
+        # Fallback to export path
+        widget_class = self.props.get('Class', f"Script error: Class for {self.Name} not found")
+        
+        # Remove project name from path
+        second_slash = widget_class.find('/', 1)
+        if second_slash != -1:
+            widget_class = widget_class[second_slash + 1:]
+
+            # Remove part after last dot
+            last_dot = widget_class.rfind('.')
+            if last_dot != -1:
+                widget_class = widget_class[:last_dot]
+
+        widget_path = widget_class.replace("/", ".") + "{}"
+        return f"{widget_path}\n"
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(Name={self.Name})"
 

@@ -10,11 +10,11 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688.svg)](https://fastapi.tiangolo.com/)
 
 
-<img src="demo.png" width="600px" alt="UMG to Verse conversion example">
+<img src="demo.png" width="600px" alt="UMG to Verse conversion example" align="center">
 
 <div align="center">
 
-[**🚀 Try the Live Demo**](https://joojn.xyz/#/umg-parser)
+[**🚀 Try the Live Demo**](https://joojn.xyz/umg-parser)
 </div>
 
 ## 📑 Table of Contents
