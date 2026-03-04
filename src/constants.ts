@@ -41,7 +41,7 @@ export function parseVector2(alignment: string): [number, number] {
 }
 
 export function formatVector2(vector: [number, number]): string {
-    return `vector2{ X := ${vector[0]}, Y := ${vector[1]} }`;
+    return `vector2{ X := ${fn(vector[0])}, Y := ${fn(vector[1])} }`;
 }
 
 export function parseAnchors(anchors: string): [number, number, number, number] {
@@ -98,10 +98,10 @@ export class Padding {
 
     codify(indent: number): string {
         let str = `${i(indent)}Padding := margin:\n`;
-        if (this.Left !== 0) str += `${i(indent + 1)}Left := ${this.Left}\n`;
-        if (this.Top !== 0) str += `${i(indent + 1)}Top := ${this.Top}\n`;
-        if (this.Right !== 0) str += `${i(indent + 1)}Right := ${this.Right}\n`;
-        if (this.Bottom !== 0) str += `${i(indent + 1)}Bottom := ${this.Bottom}\n`;
+        if (this.Left !== 0) str += `${i(indent + 1)}Left := ${fn(this.Left)}\n`;
+        if (this.Top !== 0) str += `${i(indent + 1)}Top := ${fn(this.Top)}\n`;
+        if (this.Right !== 0) str += `${i(indent + 1)}Right := ${fn(this.Right)}\n`;
+        if (this.Bottom !== 0) str += `${i(indent + 1)}Bottom := ${fn(this.Bottom)}\n`;
         return str;
     }
 }

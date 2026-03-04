@@ -141,7 +141,7 @@ export class Image extends Widget {
                 result += `${i(indent + 1)}DefaultColor := ${this.tintColor}\n`;
             }
             if (this.opacity !== 1.0) {
-                result += `${i(indent + 1)}DefaultOpacity := ${this.opacity}\n`;
+                result += `${i(indent + 1)}DefaultOpacity := ${fn(this.opacity)}\n`;
             }
             result += `${i(indent + 1)}DefaultDesiredSize := ${formatVector2(this.size)}\n`;
             return result;
@@ -226,7 +226,7 @@ export class TextBlock extends Widget {
         }
 
         if (this.opacity !== 1.0) {
-            result += `${i(indent + 1)}DefaultOpacity := ${this.opacity}\n`;
+            result += `${i(indent + 1)}DefaultOpacity := ${fn(this.opacity)}\n`;
         }
 
         if (this.shadowOffset) {

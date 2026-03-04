@@ -156,11 +156,11 @@ export class CanvasSlot extends Slot {
         result += `${i(indent + 1)}SizeToContent := ${this.SizeToContent ? "true" : "false"}\n`;
 
         if (this.Offsets) {
-            const left = this.Offsets.Left ?? 0.0;
-            const top = this.Offsets.Top ?? 0.0;
+            const left = fn(this.Offsets.Left ?? 0.0);
+            const top = fn(this.Offsets.Top ?? 0.0);
             const sizeStr = this.SizeToContent
                 ? ""
-                : `, ${this.Offsets.Right ?? 100.0}, ${this.Offsets.Bottom ?? 30.0}`;
+                : `, ${fn(this.Offsets.Right ?? 100.0)}, ${fn(this.Offsets.Bottom ?? 30.0)}`;
             result += `${i(indent + 1)}Offsets := Offsets(${left}, ${top}${sizeStr})\n`;
         }
 
