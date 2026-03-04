@@ -1,6 +1,31 @@
 {
-  "devDependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+    "name": "umg-parser",
+    "version": "1.0.0",
+    "description": "Convert UMG Widget Blueprints to Verse UI code for UEFN",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "prepare": "npm run build"
+    },
+    "keywords": [
+        "umg",
+        "unreal",
+        "uefn",
+        "verse",
+        "widget",
+        "fortnite"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/joojn1122/umg-parser.git"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    }
 }
